@@ -1,0 +1,30 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: container-registry-ingress
+  namespace: container-registry
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt
+    nginx.ingress.kubernetes.io/proxy-body-size: "0"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "3600"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "3600"
+    nginx.ingress.kubernetes.io/proxy-connect-timeout: "600"
+    nginx.ingress.kubernetes.io/proxy-buffering: "off"
+    nginx.ingress.kubernetes.io/proxy-request-buffering: "off"
+spec:
+  rules:
+  - host: "registry.biend.com.br"
+    http:
+      paths:
+      - path: "/"
+        pathType: Prefix
+        backend:
+          service:
+            name: registry # Name of your registry's K8s Service
+            port:
+              number: 5000 # The port your registry service is exposed on (e.g., 5000 for Docker registry)
+  # Configure TLS if you are using HTTPS
+  tls:
+  - hosts:
+    - registry.biend.com.br
+    secretName: registry-tls-secret # Secret to store your TLS certificate
