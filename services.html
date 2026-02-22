@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>IT Services Showcase | Modern Tech Consultant</title>
+<link href="style.css" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols_Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#13ecec",
+                        "background-light": "#f6f8f8",
+                        "background-dark": "#102222",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-800 dark:text-slate-100 font-display transition-colors duration-300">
+<!-- Navigation -->
+<nav class="nav-fixed bg-background-light/80 dark:bg-background-dark/80 border-b border-primary/10">
+<div class="nav-container">
+<a href="index.html" class="nav-logo">
+<div class="nav-logo-icon">
+<span class="material-icons font-bold">terminal</span>
+</div>
+<span class="text-xl font-black tracking-tight dark:text-white">TECH<span class="text-primary">ARCH</span></span>
+</a>
+<nav class="hidden md:flex items-center gap-8">
+<a class="nav-link" href="index.html">Home</a>
+<a class="nav-link active" href="services.html">Services</a>
+<a class="nav-link" href="#portfolio">Portfolio</a>
+<a class="nav-link" href="index.html#contact">Contact</a>
+</nav>
+<button class="btn btn-primary">
+                Book a Call
+            </button>
+</div>
+</nav>
+<!-- Hero Section -->
+<header class="hero-section gradient-mesh dark:bg-none">
+<div class="hero-content">
+<div class="max-w-3xl">
+<span class="hero-badge bg-primary/10 text-primary border border-primary/20">
+                    Professional Expertise
+                </span>
+<h1 class="hero-title dark:text-white">
+                    Scaling Innovation through <span class="text-primary">Precision Engineering.</span>
+</h1>
+<p class="hero-description text-slate-600 dark:text-slate-400">
+                    I help forward-thinking companies build robust digital ecosystems, from automated chat environments to high-availability server infrastructures.
+                </p>
+</div>
+</div>
+</header>
+<!-- Services Grid Section -->
+<main class="section bg-white dark:bg-background-dark/50">
+<div class="section-container">
+<div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
+<div>
+<h2 class="section-title text-left mb-4 dark:text-white">Core Services</h2>
+<div class="section-divider"></div>
+</div>
+<p class="section-subtitle text-left text-slate-500 dark:text-slate-400 max-w-md">
+                    Comprehensive technical solutions designed to streamline your operations and enhance your digital presence.
+                </p>
+</div>
+<div class="grid-layout grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
+<!-- Service 1: Web Development -->
+<div class="card">
+<div class="mb-8 relative">
+<div class="card-icon-wrapper card-icon-primary">
+<span class="material-icons text-primary text-3xl">code</span>
+</div>
+<div class="absolute -top-2 -right-2 opacity-10">
+<span class="material-icons text-6xl">web</span>
+</div>
+</div>
+<h3 class="card-title dark:text-white">Website Development</h3>
+<p class="card-description">
+                        High-performance, responsive web applications built with modern frameworks to ensure speed, security, and exceptional user experience.
+                    </p>
+<a class="card-link text-primary" href="#">
+                        Learn more <span class="material-icons text-sm">arrow_forward</span>
+</a>
+</div>
+<!-- Service 2: Chat Automation -->
+<div class="card">
+<div class="mb-8 relative">
+<div class="card-icon-wrapper card-icon-success">
+<span class="material-icons text-emerald-500 text-3xl">smart_toy</span>
+</div>
+<div class="absolute -top-2 -right-2 opacity-10">
+<span class="material-icons text-6xl">forum</span>
+</div>
+</div>
+<h3 class="card-title dark:text-white">Chat Automation</h3>
+<p class="card-description">
+                        Streamline customer engagement across WhatsApp, Telegram, and Instagram using intelligent AI-driven logic and workflow automation.
+                    </p>
+<a class="card-link text-emerald-500" href="#">
+                        Learn more <span class="material-icons text-sm">arrow_forward</span>
+</a>
+</div>
+<!-- Service 3: Kubernetes -->
+<div class="card">
+<div class="mb-8 relative">
+<div class="card-icon-wrapper card-icon-info">
+<span class="material-icons text-blue-500 text-3xl">cloud_queue</span>
+</div>
+<div class="absolute -top-2 -right-2 opacity-10">
+<span class="material-icons text-6xl">dns</span>
+</div>
+</div>
+<h3 class="card-title dark:text-white">Kubernetes &amp; Infrastructure</h3>
+<p class="card-description">
+                        Scalable server orchestration and continuous maintenance. I build containerized environments that grow with your business needs.
+                    </p>
+<a class="card-link text-blue-500" href="#">
+                        Learn more <span class="material-icons text-sm">arrow_forward</span>
+</a>
+</div>
+<!-- Service 4: Software Architecture -->
+<div class="card">
+<div class="mb-8 relative">
+<div class="card-icon-wrapper card-icon-cyan">
+<span class="material-icons text-cyan-500 text-3xl">account_tree</span>
+</div>
+<div class="absolute -top-2 -right-2 opacity-10">
+<span class="material-icons text-6xl">architecture</span>
+</div>
+</div>
+<h3 class="card-title dark:text-white">Solution Architecture</h3>
+<p class="card-description">
+                        Strategic ecosystem development. Designing robust technical foundations that ensure long-term stability and cross-platform compatibility.
+                    </p>
+<a class="card-link text-cyan-500" href="#">
+                        Learn more <span class="material-icons text-sm">arrow_forward</span>
+</a>
+</div>
+</div>
+</div>
+</main>
+<!-- Stats/Trust Section -->
+<section class="section bg-background-light dark:bg-background-dark">
+<div class="section-container">
+<div class="stats-grid">
+<div class="stat-card">
+<div class="stat-value">150+</div>
+<div class="stat-label">Projects Delivered</div>
+</div>
+<div class="stat-card">
+<div class="stat-value">99.9%</div>
+<div class="stat-label">Server Uptime</div>
+</div>
+<div class="stat-card">
+<div class="stat-value">12M+</div>
+<div class="stat-label">Automated Messages</div>
+</div>
+<div class="stat-card">
+<div class="stat-value">10+</div>
+<div class="stat-label">Years Experience</div>
+</div>
+</div>
+</div>
+</section>
+<!-- CTA Section -->
+<section class="section">
+<div class="section-container">
+<div class="cta-section">
+<!-- Decorative Elements -->
+<div class="cta-decoration cta-decoration-1"></div>
+<div class="cta-decoration cta-decoration-2"></div>
+<div class="relative z-10 flex flex-col md:flex-row items-center justify-between gap-12">
+<div class="max-w-xl text-center md:text-left">
+<h2 class="text-3xl md:text-5xl font-extrabold text-white mb-6">Ready to upgrade your infrastructure?</h2>
+<p class="text-slate-400 text-lg">Let's discuss how my expertise in development and automation can drive your business forward.</p>
+</div>
+<div class="flex flex-col sm:flex-row gap-4">
+<button class="btn btn-primary btn-xl">
+                        Start Your Project
+                    </button>
+<button class="btn btn-outline btn-xl bg-white/10 text-white border-white/20 hover:bg-white/20">
+                        View Portfolio
+                    </button>
+</div>
+</div>
+</div>
+</section>
+<!-- Footer -->
+<footer class="footer bg-white dark:bg-background-dark">
+<div class="footer-container">
+<a href="index.html" class="nav-logo">
+<div class="w-8 h-8 bg-primary/20 rounded-lg flex items-center justify-center">
+<span class="material-icons text-primary text-sm font-bold">terminal</span>
+</div>
+<span class="text-lg font-black tracking-tight dark:text-white uppercase">Tech<span class="text-primary">Arch</span></span>
+</a>
+<ul class="footer-links">
+<li><a class="footer-link" href="#">LinkedIn</a></li>
+<li><a class="footer-link" href="#">GitHub</a></li>
+<li><a class="footer-link" href="#">Twitter</a></li>
+<li><a class="footer-link" href="#">Behance</a></li>
+</ul>
+<div class="text-sm text-slate-400">
+                © 2024 TechArch Consulting. Built with Precision.
+            </div>
+</div>
+</footer>
+</body></html>

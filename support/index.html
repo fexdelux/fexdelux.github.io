@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Support &amp; Scripts with Descriptions | TechArch Consulting</title>
+<link href="../style.css" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#13ecec",
+                        "secondary": "#10b981",
+                        "background-light": "#f6f8f8",
+                        "background-dark": "#102222",
+                    },
+                    fontFamily: {
+                        "sans": ["Roboto", "sans-serif"],
+                        "display": ["Roboto", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-800 dark:text-slate-100 transition-colors duration-300">
+<nav class="nav-fixed bg-background-light/80 dark:bg-background-dark/80 border-b border-primary/10">
+<div class="nav-container">
+<a href="../index.html" class="nav-logo">
+<div class="nav-logo-icon">
+<span class="material-icons font-bold">terminal</span>
+</div>
+<span class="text-xl font-black tracking-tight dark:text-white uppercase">TECH<span class="text-primary">ARCH</span></span>
+</a>
+<nav class="hidden md:flex items-center gap-8">
+<a class="nav-link" href="../index.html">Home</a>
+<a class="nav-link" href="../services.html">Services</a>
+<a class="nav-link active" href="index.html">Resources</a>
+<a class="nav-link" href="#contact">Contact</a>
+</nav>
+<button class="btn btn-primary">
+                Support Login
+            </button>
+</div>
+</nav>
+<header class="hero-section gradient-mesh">
+<div class="hero-content">
+<div class="max-w-3xl">
+<span class="hero-badge bg-secondary/10 text-secondary border border-secondary/20">
+                    Expert Repository
+                </span>
+<h1 class="hero-title dark:text-white">
+                    Support &amp; <span class="text-primary">Scripts.</span>
+</h1>
+<p class="text-lg md:text-xl text-slate-600 dark:text-slate-400 max-w-2xl leading-relaxed">
+                    A comprehensive library of technical resources, automated scripts, and documentation tailored for modern IT consulting needs.
+                </p>
+</div>
+</div>
+</header>
+<main class="section bg-white dark:bg-background-dark/50">
+<div class="section-container">
+<div class="sticky top-20 z-40 bg-white dark:bg-background-dark py-6 mb-16 border-b border-slate-100 dark:border-slate-800">
+<div class="flex items-center gap-8 overflow-x-auto no-scrollbar pb-2">
+<a class="text-sm font-bold uppercase tracking-widest whitespace-nowrap text-primary border-b-2 border-primary pb-1" href="#infrastructure">Infrastructure</a>
+<a class="text-sm font-bold uppercase tracking-widest whitespace-nowrap text-slate-400 hover:text-primary transition-colors pb-1" href="#automation">Automation</a>
+<a class="text-sm font-bold uppercase tracking-widest whitespace-nowrap text-slate-400 hover:text-primary transition-colors pb-1" href="#development">Development</a>
+<a class="text-sm font-bold uppercase tracking-widest whitespace-nowrap text-slate-400 hover:text-primary transition-colors pb-1" href="#tools">Tools</a>
+</div>
+</div>
+<div class="space-y-32">
+<section class="scroll-mt-48" id="infrastructure">
+<div class="flex flex-col md:flex-row justify-between items-end mb-10 gap-6 border-l-4 border-primary pl-6">
+<div>
+<h2 class="text-3xl font-black mb-2 dark:text-white">Infrastructure</h2>
+<p class="text-slate-500 dark:text-slate-400 max-w-md">Cloud architecture, server provisioning, and network configurations.</p>
+</div>
+<span class="text-5xl opacity-10 select-none hidden md:block">01</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+<div class="resource-card card">
+<div class="card-icon-wrapper card-icon-info mb-6">
+<span class="material-symbols-outlined text-blue-500 text-3xl">cloud_queue</span>
+</div>
+<h3 class="card-title dark:text-white">Multi-Cloud VPC Provisioner</h3>
+<p class="card-subtitle">Streamline multi-cloud connectivity with automated networking logic.</p>
+<p class="card-description">
+                                Terraform template for deploying standardized VPCs across AWS and GCP with peering and transit gateways.
+                            </p>
+<div class="flex items-center justify-between mt-auto">
+<span class="text-xs font-bold text-slate-400 uppercase tracking-tighter">v4.1.0 • 120KB</span>
+<button class="btn btn-primary flex items-center gap-2 bg-blue-500 hover:bg-blue-600 text-white shadow-lg shadow-blue-500/10 !px-5 !py-2 !text-sm !rounded-lg">
+<span class="material-icons text-sm">download</span> Download
+                                </button>
+</div>
+</div>
+<div class="resource-card card">
+<div class="card-icon-wrapper card-icon-primary mb-6">
+<span class="material-symbols-outlined text-primary text-3xl">dns</span>
+</div>
+<h3 class="card-title dark:text-white">Nginx Hardening Script</h3>
+<p class="card-subtitle">Enhance web server security posture instantly with industry standards.</p>
+<p class="card-description">
+                                Automated configuration for OWASP-compliant Nginx settings, including header security and rate limiting.
+                            </p>
+<div class="flex items-center justify-between mt-auto">
+<span class="text-xs font-bold text-slate-400 uppercase tracking-tighter">v2.0.1 • 15KB</span>
+<button class="flex items-center gap-2 bg-primary hover:opacity-90 text-background-dark px-5 py-2 rounded-lg text-sm font-bold transition-colors shadow-lg shadow-primary/10">
+<span class="material-icons text-sm">download</span> Download
+                                </button>
+</div>
+</div>
+<div class="flex flex-col justify-center p-8 bg-slate-50 dark:bg-slate-900/40 rounded-2xl border-2 border-dashed border-slate-200 dark:border-slate-800 group">
+<div class="flex items-center gap-4 mb-4">
+<span class="material-icons text-blue-400">menu_book</span>
+<h4 class="font-bold dark:text-white">Official K8s Docs</h4>
+</div>
+<p class="text-sm text-slate-500 dark:text-slate-400 mb-2 italic">Essential deep-dive reference for orchestration architecture.</p>
+<p class="text-sm text-slate-500 mb-6">Master reference for orchestration and node scaling in containerized environments.</p>
+<a class="inline-flex items-center gap-2 text-primary font-bold text-sm hover:gap-3 transition-all" href="#">
+                                Visit Reference <span class="material-icons text-xs">open_in_new</span>
+</a>
+</div>
+</div>
+</section>
+<section class="scroll-mt-48" id="automation">
+<div class="flex flex-col md:flex-row justify-between items-end mb-10 gap-6 border-l-4 border-secondary pl-6">
+<div>
+<h2 class="text-3xl font-black mb-2 dark:text-white">Automation</h2>
+<p class="text-slate-500 dark:text-slate-400 max-w-md">Streamlining repetitive tasks and CI/CD pipelines.</p>
+</div>
+<span class="text-5xl opacity-10 select-none hidden md:block">02</span>
+</div>
+<div class="grid-layout grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+<div class="resource-card card">
+<div class="card-icon-wrapper card-icon-success mb-6">
+<span class="material-symbols-outlined text-emerald-500 text-3xl">bolt</span>
+</div>
+<h3 class="card-title dark:text-white">SSL Renewal Automator</h3>
+<p class="card-subtitle">Eliminate manual downtime risks with autonomous certificate handling.</p>
+<p class="card-description">
+                                Python-based automation for Let's Encrypt certificate renewal across multi-cloud distributed environments.
+                            </p>
+<div class="flex items-center justify-between mt-auto">
+<span class="text-xs font-bold text-slate-400 uppercase tracking-tighter">v3.0.1 • 88KB</span>
+<button class="btn btn-primary flex items-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-white shadow-lg shadow-emerald-500/10 !px-5 !py-2 !text-sm !rounded-lg">
+<span class="material-icons text-sm">download</span> Download
+                                </button>
+</div>
+</div>
+<div class="group resource-card bg-background-light dark:bg-background-dark p-8 rounded-2xl border border-slate-200 dark:border-slate-800 transition-all duration-300 flex flex-col h-full">
+<div class="w-14 h-14 bg-secondary/10 rounded-xl flex items-center justify-center mb-6">
+<span class="material-symbols-outlined text-secondary text-3xl">settings_input_component</span>
+</div>
+<h3 class="text-xl font-bold mb-2 dark:text-white">CI/CD Metrics Parser</h3>
+<p class="text-slate-500 dark:text-slate-400 text-sm mb-4 leading-relaxed italic">Gain actionable insights into your delivery velocity and stability.</p>
+<p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed mb-8 flex-grow">
+                                Extracts and formats deployment frequency and failure rates from GitHub Actions or GitLab CI.
+                            </p>
+<div class="flex items-center justify-between mt-auto">
+<span class="text-xs font-bold text-slate-400 uppercase tracking-tighter">v1.2.0 • 45KB</span>
+<button class="flex items-center gap-2 bg-secondary hover:opacity-90 text-background-dark px-5 py-2 rounded-lg text-sm font-bold transition-colors shadow-lg shadow-secondary/10">
+<span class="material-icons text-sm">download</span> Download
+                                </button>
+</div>
+</div>
+<div class="flex flex-col justify-center p-8 bg-slate-50 dark:bg-slate-900/40 rounded-2xl border-2 border-dashed border-slate-200 dark:border-slate-800 group">
+<div class="flex items-center gap-4 mb-4">
+<span class="material-icons text-emerald-400">auto_awesome</span>
+<h4 class="font-bold dark:text-white">Ansible Best Practices</h4>
+</div>
+<p class="text-sm text-slate-500 dark:text-slate-400 mb-2 italic">Proven patterns for manageable and scalable infrastructure code.</p>
+<p class="text-sm text-slate-500 mb-6">A curated guide to structuring roles, inventories, and playbooks for enterprise scale.</p>
+<a class="inline-flex items-center gap-2 text-secondary font-bold text-sm hover:gap-3 transition-all" href="#">
+                                Visit Site <span class="material-icons text-xs">open_in_new</span>
+</a>
+</div>
+</div>
+</section>
+<section class="scroll-mt-48" id="development">
+<div class="flex flex-col md:flex-row justify-between items-end mb-10 gap-6 border-l-4 border-blue-400 pl-6">
+<div>
+<h2 class="text-3xl font-black mb-2 dark:text-white">Development</h2>
+<p class="text-slate-500 dark:text-slate-400 max-w-md">Boilerplates, API standards, and coding utilities.</p>
+</div>
+<span class="text-5xl opacity-10 select-none hidden md:block">03</span>
+</div>
+<div class="grid-layout grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+<div class="resource-card card">
+<div class="card-icon-wrapper card-icon-info mb-6">
+<span class="material-symbols-outlined text-blue-400 text-3xl">code</span>
+</div>
+<h3 class="card-title dark:text-white">Messaging Bot Boilerplate</h3>
+<p class="card-subtitle">Jumpstart conversational interfaces with a robust pre-built engine.</p>
+<p class="card-description">
+                                Node.js template with pre-configured webhook handling and rate limiting for messaging API integration.
+                            </p>
+<div class="flex items-center justify-between mt-auto">
+<span class="text-xs font-bold text-slate-400 uppercase tracking-tighter">v1.1.2 • 1.2MB</span>
+<button class="btn btn-primary flex items-center gap-2 bg-blue-400 hover:bg-blue-500 text-white shadow-lg shadow-blue-400/10 !px-5 !py-2 !text-sm !rounded-lg">
+<span class="material-icons text-sm">download</span> Download
+                                </button>
+</div>
+</div>
+<div class="flex flex-col justify-center p-8 bg-slate-50 dark:bg-slate-900/40 rounded-2xl border-2 border-dashed border-slate-200 dark:border-slate-800 group">
+<div class="flex items-center gap-4 mb-4">
+<span class="material-icons text-blue-500">api</span>
+<h4 class="font-bold dark:text-white">API Design Guide</h4>
+</div>
+<p class="text-sm text-slate-500 dark:text-slate-400 mb-2 italic">Standardize your data exchange for developer-friendly consumption.</p>
+<p class="text-sm text-slate-500 mb-6">Technical standards for building consistent RESTful and GraphQL interfaces.</p>
+<a class="inline-flex items-center gap-2 text-blue-500 font-bold text-sm hover:gap-3 transition-all" href="#">
+                                Visit Site <span class="material-icons text-xs">open_in_new</span>
+</a>
+</div>
+<div class="flex flex-col justify-center p-8 bg-slate-50 dark:bg-slate-900/40 rounded-2xl border-2 border-dashed border-slate-200 dark:border-slate-800 group">
+<div class="flex items-center gap-4 mb-4">
+<span class="material-icons text-primary">javascript</span>
+<h4 class="font-bold dark:text-white">TypeScript Configs</h4>
+</div>
+<p class="text-sm text-slate-500 dark:text-slate-400 mb-2 italic">Optimal strictness settings for bug-resistant modern JS apps.</p>
+<p class="text-sm text-slate-500 mb-6">Strict tsconfig presets optimized for production-ready web and mobile apps.</p>
+<a class="inline-flex items-center gap-2 text-primary font-bold text-sm hover:gap-3 transition-all" href="#">
+                                Visit GitHub <span class="material-icons text-xs">open_in_new</span>
+</a>
+</div>
+</div>
+</section>
+<section class="scroll-mt-48" id="tools">
+<div class="flex flex-col md:flex-row justify-between items-end mb-10 gap-6 border-l-4 border-slate-400 pl-6">
+<div>
+<h2 class="text-3xl font-black mb-2 dark:text-white">Tools</h2>
+<p class="text-slate-500 dark:text-slate-400 max-w-md">Essential utilities for daily IT operations and monitoring.</p>
+</div>
+<span class="text-5xl opacity-10 select-none hidden md:block">04</span>
+</div>
+<div class="grid grid-cols-1 gap-4">
+<div class="flex flex-col md:flex-row md:items-center justify-between p-6 bg-background-light dark:bg-slate-900/50 rounded-xl border border-slate-200 dark:border-slate-800 hover:border-primary/40 transition-all group">
+<div class="flex items-center gap-5 mb-4 md:mb-0">
+<div class="w-12 h-12 bg-white dark:bg-background-dark rounded-full flex items-center justify-center border border-slate-200 dark:border-slate-700">
+<span class="material-icons text-blue-500">construction</span>
+</div>
+<div>
+<h4 class="font-bold text-lg dark:text-white">DevOps Toolchain Matrix</h4>
+<p class="text-xs text-slate-400 dark:text-slate-500 italic mb-1 uppercase tracking-wider">Strategic comparison for stack optimization</p>
+<p class="text-sm text-slate-500 dark:text-slate-400">Interactive comparison of CI/CD and monitoring tools for the current 2024 ecosystem.</p>
+</div>
+</div>
+<a class="inline-flex items-center gap-2 text-primary font-bold hover:gap-3 transition-all" href="#">
+                                Open Matrix <span class="material-icons text-sm">open_in_new</span>
+</a>
+</div>
+<div class="flex flex-col md:flex-row md:items-center justify-between p-6 bg-background-light dark:bg-slate-900/50 rounded-xl border border-slate-200 dark:border-slate-800 hover:border-secondary/40 transition-all group">
+<div class="flex items-center gap-5 mb-4 md:mb-0">
+<div class="w-12 h-12 bg-white dark:bg-background-dark rounded-full flex items-center justify-center border border-slate-200 dark:border-slate-700">
+<span class="material-icons text-emerald-400">security</span>
+</div>
+<div>
+<h4 class="font-bold text-lg dark:text-white">Password Audit Pro</h4>
+<p class="text-xs text-slate-400 dark:text-slate-500 italic mb-1 uppercase tracking-wider">Privacy-focused security verification</p>
+<p class="text-sm text-slate-500 dark:text-slate-400">Local-only utility for checking credential strength and breach history without sending data to servers.</p>
+</div>
+</div>
+<a class="inline-flex items-center gap-2 text-secondary font-bold hover:gap-3 transition-all" href="#">
+                                Visit Tool <span class="material-icons text-sm">open_in_new</span>
+</a>
+</div>
+</div>
+</section>
+</div>
+</div>
+</main>
+<section class="section bg-background-light dark:bg-background-dark relative">
+<div class="section-container relative z-10">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-12 text-center">
+<div class="space-y-4">
+<div class="text-5xl opacity-30 select-none">⚡</div>
+<h4 class="font-bold text-xl">Categorized Access</h4>
+<p class="text-slate-500 text-sm">Logical grouping allows you to find what you need in seconds, with clear context provided for every link.</p>
+</div>
+<div class="space-y-4">
+<div class="text-5xl opacity-30 select-none">🛡️</div>
+<h4 class="font-bold text-xl">Security First</h4>
+<p class="text-slate-500 text-sm">All resources are audited for common vulnerabilities and include hardening guides for production use.</p>
+</div>
+<div class="space-y-4">
+<div class="text-5xl opacity-30 select-none">🌱</div>
+<h4 class="font-bold text-xl">Always Updated</h4>
+<p class="text-slate-500 text-sm">Monthly updates to all scripts ensure compatibility with the latest API versions and cloud provider changes.</p>
+</div>
+</div>
+</div>
+<div class="absolute top-10 right-10 w-32 h-32 border-4 border-primary/20 rounded-full"></div>
+<div class="absolute bottom-10 left-10 w-24 h-24 border-4 border-secondary/20 rotate-45"></div>
+</section>
+<section class="section">
+<div class="section-container">
+<div class="cta-section">
+<div class="cta-decoration cta-decoration-1"></div>
+<div class="cta-decoration cta-decoration-2"></div>
+<div class="relative z-10 flex flex-col md:flex-row items-center justify-between gap-12">
+<div class="max-w-xl text-center md:text-left">
+<h2 class="text-3xl md:text-5xl font-black text-white mb-6">Need a custom solution?</h2>
+<p class="text-slate-400 text-lg font-light">If these resources don't cover your specific requirements, let's build a tailored automation suite together.</p>
+</div>
+<div class="flex flex-col sm:flex-row gap-4">
+<button class="btn btn-primary btn-xl">
+                        Request Support
+                    </button>
+<button class="btn btn-outline btn-xl bg-white/10 text-white border-white/20 hover:bg-white/20">
+                        View FAQ
+                    </button>
+</div>
+</div>
+</div>
+</div>
+</section>
+<footer class="footer bg-white dark:bg-background-dark">
+<div class="footer-container">
+<a href="../index.html" class="nav-logo">
+<div class="w-8 h-8 bg-primary/20 rounded-lg flex items-center justify-center">
+<span class="material-icons text-primary text-sm font-bold">terminal</span>
+</div>
+<span class="text-lg font-black tracking-tight dark:text-white uppercase">Tech<span class="text-primary">Arch</span></span>
+</a>
+<ul class="footer-links">
+<li><a class="footer-link" href="#">LinkedIn</a></li>
+<li><a class="footer-link" href="#">GitHub</a></li>
+<li><a class="footer-link" href="#">Twitter</a></li>
+<li><a class="footer-link" href="#">Documentation</a></li>
+</ul>
+<div class="text-sm text-slate-400">
+                © 2024 TechArch Consulting. Built with Precision.
+            </div>
+</div>
+</footer>
+
+</body></html>
