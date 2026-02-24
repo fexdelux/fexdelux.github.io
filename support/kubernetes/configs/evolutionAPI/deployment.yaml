@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: evolutionapi
+spec:
+  selector:
+    matchLabels:
+      app: evolutionapi
+  template:
+    metadata:
+      labels:
+        app: evolutionapi
+    spec:
+      imagePullSecrets:
+        - name: registry-harbor-cluster
+      containers:
+      - name: evolutionapi
+        image: image-container-kustomization
+        imagePullPolicy: IfNotPresent
+        envFrom:
+        - secretRef:  
+            name: secret-api-collector-staging
+        - configMapRef:
+            name: staging-cm-api-collector   
+        resources:
+          limits:
+            memory: "1000Mi"
+            cpu: "1000m"
+          requests:
+            memory: "52Mi"
+            cpu: "1m"
+        ports:
+        - containerPort: 8080

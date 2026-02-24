@@ -14,7 +14,6 @@ RUN apk add --no-cache \
         php83-cli \
         php83-curl \
         php83-gd \
-        php83-igbinary \
         php83-mbstring \
         php83-mysqli \
         php83-mysqlnd \

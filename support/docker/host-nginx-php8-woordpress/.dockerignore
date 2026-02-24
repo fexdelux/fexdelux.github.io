@@ -16,3 +16,4 @@ wordpress/wp-config.php
 *.log
 biend-wordpress-basic/
 *.md
+ssl/

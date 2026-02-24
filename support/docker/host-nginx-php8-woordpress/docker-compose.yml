@@ -40,11 +40,13 @@ services:
   # WordPress (Nginx + PHP 8.3)
   wordpress:
     build: .
-    # image: your-registry/wordpress-nginx-php8:alpine
+    # Para usar imagem do registry, comente 'build' e descomente 'image' abaixo:
+    # image: registry.biend.com.br/wordpress-nginx-php8:1.0.0
     container_name: wordpress-app
     restart: unless-stopped
     ports:
       - "8080:80"
+      - "8443:443"
     environment:
       # Database Configuration
       WORDPRESS_DB_HOST: mysql
@@ -62,6 +64,7 @@ services:
       WORDPRESS_DEBUG: "false"
     volumes:
       - wordpress-data:/var/www/html
+      - ./ssl:/etc/nginx/ssl:ro
     networks:
       - wordpress-net
     depends_on:
@@ -70,7 +73,7 @@ services:
       redis:
         condition: service_healthy
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost/"]
+      test: ["CMD", "curl", "-fk", "https://localhost/"]
       interval: 30s
       timeout: 10s
       retries: 3
@@ -89,9 +92,11 @@ networks:
     driver: bridge
 
 # Para usar:
-# 1. Build da imagem: docker-compose build
-# 2. Iniciar: docker-compose up -d
-# 3. Acessar: http://localhost:8080
-# 4. Ver logs: docker-compose logs -f wordpress
-# 5. Parar: docker-compose down
-# 6. Remover volumes: docker-compose down -v
+# 1. Gerar certificados SSL: .\generate-ssl-cert.ps1
+# 2. Build da imagem: docker-compose build
+# 3. Iniciar: docker-compose up -d
+# 4. Acessar HTTP: http://localhost:8080 (redireciona para HTTPS)
+# 5. Acessar HTTPS: https://localhost:8443
+# 6. Ver logs: docker-compose logs -f wordpress
+# 7. Parar: docker-compose down
+# 8. Remover volumes: docker-compose down -v
