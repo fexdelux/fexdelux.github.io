@@ -2,6 +2,31 @@
 
 ## ⚡ Publicação Rápida
 
+### Publicar TODOS os Charts (Recomendado)
+
+```powershell
+# Publicar todos os charts da pasta
+cd support\helm
+.\publish-all-charts.ps1
+
+# Forcar sobrescrever versoes existentes
+.\publish-all-charts.ps1 -Force
+
+# Publicar apenas charts especificos (filtro por nome)
+.\publish-all-charts.ps1 -ChartFilter "biend-*"
+```
+
+### Publicar UM Chart Especifico
+
+```powershell
+# Publicar apenas o wordpress
+cd support\helm\biend-wordpress-basic
+..\publish.ps1
+
+# Ou com força (sobrescrever versão existente)
+..\publish.ps1 -Force
+```
+
 ### Windows (PowerShell)
 
 ```powershell

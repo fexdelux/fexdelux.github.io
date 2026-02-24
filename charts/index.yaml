@@ -3,10 +3,10 @@ entries:
   biend-wordpress-basic:
   - apiVersion: v2
     appVersion: "6.4"
-    created: "2026-02-24T17:56:12.1955035-03:00"
+    created: "2026-02-24T20:26:15.2080217-03:00"
     description: WordPress básico com Nginx, PHP 8.3, MySQL/MariaDB e Redis em pods
       separados
-    digest: 1c9c19429d6a8501041bd986782b0d2f816fa6fabbdf806d7fe5c1081260f918
+    digest: a240207ff041398bbc567990ff8a782abed35c11d96ae6f52ab687949dade2eb
     home: https://github.com/fexdelux
     keywords:
     - wordpress
@@ -25,4 +25,4 @@ entries:
     urls:
     - https://fexdelux.github.io/charts/biend-wordpress-basic-1.0.0.tgz
     version: 1.0.0
-generated: "2026-02-24T17:56:12.1943265-03:00"
+generated: "2026-02-24T20:26:15.2068868-03:00"

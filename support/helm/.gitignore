@@ -1,0 +1,6 @@
+# Build reports
+publish-report.json
+
+# Temporary files
+*.tmp
+*.bak

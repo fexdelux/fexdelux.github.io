@@ -6,8 +6,8 @@ metadata:
     {{- include "biend-wordpress-basic.labels" . | nindent 4 }}
 spec:
   secretName: {{ include "biend-wordpress-basic.fullname" . }}-tls-secret
-  duration: 8760h # 1 ano
-  renewBefore: 720h # 30 dias antes
+  duration: 8760h
+  renewBefore: 720h
   subject:
     organizations:
       - {{ .Values.certificate.organization | default "BiendIT" }}
