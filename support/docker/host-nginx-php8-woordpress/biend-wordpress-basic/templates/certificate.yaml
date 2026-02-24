@@ -1,0 +1,23 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: {{ include "biend-wordpress-basic.fullname" . }}-tls
+  labels:
+    {{- include "biend-wordpress-basic.labels" . | nindent 4 }}
+spec:
+  secretName: {{ include "biend-wordpress-basic.fullname" . }}-tls-secret
+  duration: 8760h # 1 ano
+  renewBefore: 720h # 30 dias antes
+  subject:
+    organizations:
+      - {{ .Values.certificate.organization | default "BiendIT" }}
+  commonName: {{ .Values.certificate.commonName | default "wordpress.local" }}
+  dnsNames:
+    - {{ .Values.certificate.commonName | default "wordpress.local" }}
+    {{- range .Values.certificate.dnsNames }}
+    - {{ . }}
+    {{- end }}
+  issuerRef:
+    name: {{ include "biend-wordpress-basic.fullname" . }}-selfsigned
+    kind: Issuer
+    group: cert-manager.io

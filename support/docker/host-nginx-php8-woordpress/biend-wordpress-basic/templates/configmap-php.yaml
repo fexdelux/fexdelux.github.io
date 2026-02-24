@@ -1,0 +1,90 @@
+{{- if .Values.wordpress.enabled }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "biend-wordpress-basic.fullname" . }}-php-config
+  labels:
+    {{- include "biend-wordpress-basic.wordpress.labels" . | nindent 4 }}
+data:
+  php-custom.ini: |
+    [PHP]
+    ; Tamanhos de upload
+    upload_max_filesize = {{ .Values.wordpress.php.uploadMaxFilesize }}
+    post_max_size = {{ .Values.wordpress.php.postMaxSize }}
+    max_file_uploads = 20
+
+    ; Limites de execução
+    max_execution_time = {{ .Values.wordpress.php.maxExecutionTime }}
+    max_input_time = {{ .Values.wordpress.php.maxInputTime }}
+    max_input_vars = {{ .Values.wordpress.php.maxInputVars }}
+
+    ; Memória
+    memory_limit = {{ .Values.wordpress.php.memoryLimit }}
+
+    ; Segurança
+    cgi.fix_pathinfo = 0
+    expose_php = Off
+    allow_url_fopen = On
+    allow_url_include = Off
+
+    ; Session
+    session.save_handler = files
+    session.save_path = "/var/lib/php/sessions"
+    session.gc_maxlifetime = 1440
+
+    ; Timezone
+    date.timezone = America/Sao_Paulo
+
+    ; Error reporting (produção)
+    display_errors = Off
+    display_startup_errors = Off
+    log_errors = On
+    error_log = /var/log/php8.3/error.log
+    error_reporting = E_ALL & ~E_DEPRECATED & ~E_STRICT
+
+    ; OPcache
+    opcache.enable = {{ .Values.wordpress.php.opcacheEnable }}
+    opcache.enable_cli = 1
+    opcache.memory_consumption = {{ .Values.wordpress.php.opcacheMemoryConsumption }}
+    opcache.interned_strings_buffer = 8
+    opcache.max_accelerated_files = 10000
+    opcache.revalidate_freq = 60
+    opcache.fast_shutdown = 1
+    opcache.validate_timestamps = 1
+
+    ; Realpath cache
+    realpath_cache_size = 4096K
+    realpath_cache_ttl = 600
+
+  php-fpm-www.conf: |
+    [www]
+    user = www-data
+    group = www-data
+    listen = /run/php/php8.3-fpm.sock
+    listen.owner = www-data
+    listen.group = www-data
+    listen.mode = 0660
+    
+    ; Process manager
+    pm = dynamic
+    pm.max_children = {{ .Values.wordpress.php.pmMaxChildren }}
+    pm.start_servers = {{ .Values.wordpress.php.pmStartServers }}
+    pm.min_spare_servers = {{ .Values.wordpress.php.pmMinSpareServers }}
+    pm.max_spare_servers = {{ .Values.wordpress.php.pmMaxSpareServers }}
+    pm.max_requests = 500
+    
+    ; Logging
+    access.log = /proc/self/fd/2
+    catch_workers_output = yes
+    decorate_workers_output = no
+    
+    ; Timeouts
+    request_terminate_timeout = 300s
+    
+    ; Environment variables
+    env[HOSTNAME] = $HOSTNAME
+    env[PATH] = /usr/local/bin:/usr/bin:/bin
+    env[TMP] = /tmp
+    env[TMPDIR] = /tmp
+    env[TEMP] = /tmp
+{{- end }}

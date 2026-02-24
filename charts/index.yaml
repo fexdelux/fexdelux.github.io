@@ -1,0 +1,28 @@
+apiVersion: v1
+entries:
+  biend-wordpress-basic:
+  - apiVersion: v2
+    appVersion: "6.4"
+    created: "2026-02-24T17:56:12.1955035-03:00"
+    description: WordPress básico com Nginx, PHP 8.3, MySQL/MariaDB e Redis em pods
+      separados
+    digest: 1c9c19429d6a8501041bd986782b0d2f816fa6fabbdf806d7fe5c1081260f918
+    home: https://github.com/fexdelux
+    keywords:
+    - wordpress
+    - nginx
+    - php
+    - mysql
+    - mariadb
+    - redis
+    maintainers:
+    - email: support@techarch.com
+      name: TechArch
+    name: biend-wordpress-basic
+    sources:
+    - https://github.com/fexdelux/biend-wordpress-basic
+    type: application
+    urls:
+    - https://fexdelux.github.io/charts/biend-wordpress-basic-1.0.0.tgz
+    version: 1.0.0
+generated: "2026-02-24T17:56:12.1943265-03:00"

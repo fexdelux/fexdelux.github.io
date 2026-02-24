@@ -1,0 +1,8 @@
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: {{ include "biend-wordpress-basic.fullname" . }}-selfsigned
+  labels:
+    {{- include "biend-wordpress-basic.labels" . | nindent 4 }}
+spec:
+  selfSigned: {}

@@ -1,0 +1,97 @@
+version: '3.8'
+
+services:
+  # MySQL/MariaDB Database
+  mysql:
+    image: mariadb:10.11
+    container_name: wordpress-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpass123
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wpuser
+      MYSQL_PASSWORD: wppass123
+    volumes:
+      - mysql-data:/var/lib/mysql
+    networks:
+      - wordpress-net
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-prootpass123"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Redis Cache
+  redis:
+    image: redis:7-alpine
+    container_name: wordpress-redis
+    restart: unless-stopped
+    command: redis-server --requirepass redispass123
+    volumes:
+      - redis-data:/data
+    networks:
+      - wordpress-net
+    healthcheck:
+      test: ["CMD", "redis-cli", "--no-auth-warning", "-a", "redispass123", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # WordPress (Nginx + PHP 8.3)
+  wordpress:
+    build: .
+    # image: your-registry/wordpress-nginx-php8:alpine
+    container_name: wordpress-app
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    environment:
+      # Database Configuration
+      WORDPRESS_DB_HOST: mysql
+      WORDPRESS_DB_NAME: wordpress
+      WORDPRESS_DB_USER: wpuser
+      WORDPRESS_DB_PASSWORD: wppass123
+      WORDPRESS_TABLE_PREFIX: wp_
+      
+      # Redis Configuration
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      REDIS_PASSWORD: redispass123
+      
+      # WordPress Debug (false para produção)
+      WORDPRESS_DEBUG: "false"
+    volumes:
+      - wordpress-data:/var/www/html
+    networks:
+      - wordpress-net
+    depends_on:
+      mysql:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+
+volumes:
+  mysql-data:
+    driver: local
+  redis-data:
+    driver: local
+  wordpress-data:
+    driver: local
+
+networks:
+  wordpress-net:
+    driver: bridge
+
+# Para usar:
+# 1. Build da imagem: docker-compose build
+# 2. Iniciar: docker-compose up -d
+# 3. Acessar: http://localhost:8080
+# 4. Ver logs: docker-compose logs -f wordpress
+# 5. Parar: docker-compose down
+# 6. Remover volumes: docker-compose down -v

@@ -1,0 +1,19 @@
+# Helm chart ignores
+.git/
+.gitignore
+.DS_Store
+*.swp
+*.bak
+*.tmp
+*.orig
+*~
+
+# IDE
+.idea/
+.vscode/
+*.iml
+
+# Build artifacts
+*.tgz
+dist/
+.helmignore

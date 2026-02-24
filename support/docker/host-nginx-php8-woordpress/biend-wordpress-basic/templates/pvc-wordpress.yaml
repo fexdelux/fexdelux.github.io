@@ -1,0 +1,17 @@
+{{- if and .Values.wordpress.enabled .Values.wordpress.persistence.enabled (not .Values.wordpress.persistence.existingClaim) }}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ include "biend-wordpress-basic.fullname" . }}-wordpress-pvc
+  labels:
+    {{- include "biend-wordpress-basic.wordpress.labels" . | nindent 4 }}
+spec:
+  accessModes:
+  - {{ .Values.wordpress.persistence.accessMode }}
+  resources:
+    requests:
+      storage: {{ .Values.wordpress.persistence.size }}
+  {{- if .Values.global.storageClass }}
+  storageClassName: {{ .Values.global.storageClass }}
+  {{- end }}
+{{- end }}

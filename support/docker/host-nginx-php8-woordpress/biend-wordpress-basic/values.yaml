@@ -1,0 +1,191 @@
+# Configurações globais
+global:
+  storageClass: ""  # Deixe vazio para usar o padrão do cluster
+
+# Configurações do certificado autoassinado
+certificate:
+  enabled: true
+  # Nome comum do certificado (CN)
+  commonName: "wordpress.local"
+  # Organização
+  organization: "BiendIT"
+  # DNS alternativos (SANs)
+  dnsNames:
+    - "*.wordpress.local"
+    - "localhost"
+
+# Configurações do WordPress (Nginx + PHP 8.3)
+wordpress:
+  enabled: true
+  replicaCount: 1
+  
+  image:
+    repository: your-registry/wordpress-nginx-php8
+    tag: "latest"
+    pullPolicy: IfNotPresent
+  
+  service:
+    type: ClusterIP
+    port: 80
+    httpsPort: 443
+  
+  resources:
+    requests:
+      memory: "512Mi"
+      cpu: "500m"
+    limits:
+      memory: "1Gi"
+      cpu: "1000m"
+  
+  # Configurações PHP
+  php:
+    uploadMaxFilesize: "64M"
+    postMaxSize: "64M"
+    maxExecutionTime: "300"
+    maxInputTime: "300"
+    memoryLimit: "256M"
+    maxInputVars: "3000"
+    opcacheEnable: "1"
+    opcacheMemoryConsumption: "128"
+    pmMaxChildren: "50"
+    pmStartServers: "10"
+    pmMinSpareServers: "5"
+    pmMaxSpareServers: "20"
+  
+  # Persistência para arquivos do WordPress
+  persistence:
+    enabled: true
+    size: 10Gi
+    accessMode: ReadWriteOnce
+    # existingClaim: ""  # Use um PVC existente
+
+# Configurações do MySQL/MariaDB
+mysql:
+  enabled: true
+  
+  image:
+    repository: mariadb
+    tag: "10.11"
+    pullPolicy: IfNotPresent
+  
+  service:
+    type: ClusterIP
+    port: 3306
+  
+  # Credenciais do banco de dados
+  auth:
+    rootPassword: "fexdelux#11"
+    database: "wordpress"
+    username: "wordpress"
+    password: "wordpress123"
+  
+  resources:
+    requests:
+      memory: "512Mi"
+      cpu: "500m"
+    limits:
+      memory: "1Gi"
+      cpu: "1000m"
+  
+  # Persistência para dados do MySQL
+  persistence:
+    enabled: true
+    size: 10Gi
+    accessMode: ReadWriteOnce
+    # existingClaim: ""  # Use um PVC existente
+
+# Configurações do Redis
+redis:
+  enabled: true
+  
+  image:
+    repository: redis
+    tag: "7-alpine"
+    pullPolicy: IfNotPresent
+  
+  service:
+    type: ClusterIP
+    port: 6379
+  
+  # Senha do Redis (deixe vazio para sem senha)
+  auth:
+    password: ""
+  
+  resources:
+    requests:
+      memory: "256Mi"
+      cpu: "250m"
+    limits:
+      memory: "512Mi"
+      cpu: "500m"
+  
+  # Persistência para dados do Redis
+  persistence:
+    enabled: false
+    size: 2Gi
+    accessMode: ReadWriteOnce
+
+# Configurações do Ingress
+ingress:
+  enabled: false
+  className: "nginx"
+  annotations:
+    # Cert-manager para SSL/TLS automático
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    
+    # HTTP/2 e Performance
+    nginx.ingress.kubernetes.io/ssl-protocols: "TLSv1.2 TLSv1.3"
+    nginx.ingress.kubernetes.io/ssl-ciphers: "ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384"
+    nginx.ingress.kubernetes.io/ssl-prefer-server-ciphers: "true"
+    nginx.ingress.kubernetes.io/http2-push-preload: "true"
+    
+    # Upload size
+    nginx.ingress.kubernetes.io/proxy-body-size: "64m"
+    
+    # Compression
+    nginx.ingress.kubernetes.io/enable-gzip: "true"
+    nginx.ingress.kubernetes.io/gzip-types: "text/plain text/css text/xml text/javascript application/json application/javascript application/xml+rss application/rss+xml application/atom+xml image/svg+xml"
+    
+    # Buffering
+    nginx.ingress.kubernetes.io/proxy-buffer-size: "128k"
+    nginx.ingress.kubernetes.io/proxy-buffers-number: "4"
+    nginx.ingress.kubernetes.io/proxy-busy-buffers-size: "256k"
+    
+    # Timeouts
+    nginx.ingress.kubernetes.io/proxy-connect-timeout: "300"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "300"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "300"
+    
+    # HSTS (HTTP Strict Transport Security)
+    nginx.ingress.kubernetes.io/hsts: "true"
+    nginx.ingress.kubernetes.io/hsts-max-age: "31536000"
+    nginx.ingress.kubernetes.io/hsts-include-subdomains: "true"
+    nginx.ingress.kubernetes.io/hsts-preload: "true"
+    
+    # Force HTTPS redirect
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+    
+  hosts:
+    - host: wordpress.example.com
+      paths:
+        - path: /
+          pathType: Prefix
+  tls:
+    - secretName: wordpress-tls
+      hosts:
+        - wordpress.example.com
+
+# Configurações de segurança
+securityContext:
+  fsGroup: 33  # www-data
+  runAsUser: 33
+  runAsNonRoot: true
+
+# Node selector
+nodeSelector: {}
+
+# Tolerations
+tolerations: []
+
+# Affinity
+affinity: {}

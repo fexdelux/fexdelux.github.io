@@ -1,0 +1,29 @@
+# WordPress files
+wordpress/
+!wordpress/.gitkeep
+
+# Logs
+logs/
+*.log
+
+# Environment variables
+.env
+
+# Backups
+backup-*.sql
+backup-*.tar.gz
+
+# OS specific
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Docker
+.docker/
