@@ -2,7 +2,7 @@ apiVersion: v2
 name: biend-wordpress-basic
 description: WordPress básico com Nginx, PHP 8.3, MySQL/MariaDB e Redis em pods separados
 type: application
-version: 1.0.4
+version: 1.0.5
 appVersion: "6.4"
 keywords:
   - wordpress
