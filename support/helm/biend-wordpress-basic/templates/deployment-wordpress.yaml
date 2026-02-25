@@ -31,6 +31,9 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+      securityContext:
+        fsGroup: 33
+        runAsUser: 0
       containers:
       - name: wordpress
         image: "{{ .Values.wordpress.image.repository }}:{{ .Values.wordpress.image.tag }}"
