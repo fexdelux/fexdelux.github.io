@@ -13,9 +13,9 @@ spec:
       - {{ .Values.certificate.organization | default "BiendIT" }}
   commonName: {{ .Values.certificate.commonName | default "wordpress.local" }}
   dnsNames:
-    - {{ .Values.certificate.commonName | default "wordpress.local" }}
+    - {{ .Values.certificate.commonName | default "wordpress.local" | quote }}
     {{- range .Values.certificate.dnsNames }}
-    - {{ . }}
+    - {{ . | quote }}
     {{- end }}
   issuerRef:
     name: {{ include "biend-wordpress-basic.fullname" . }}-selfsigned
