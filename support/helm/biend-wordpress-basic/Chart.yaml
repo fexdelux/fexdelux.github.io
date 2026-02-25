@@ -2,7 +2,7 @@ apiVersion: v2
 name: biend-wordpress-basic
 description: WordPress básico com Nginx, PHP 8.3, MySQL/MariaDB e Redis em pods separados
 type: application
-version: 1.0.0
+version: 1.0.1
 appVersion: "6.4"
 keywords:
   - wordpress
@@ -15,5 +15,5 @@ home: https://github.com/fexdelux
 sources:
   - https://github.com/fexdelux/biend-wordpress-basic
 maintainers:
-  - name: TechArch
-    email: support@techarch.com
+  - name: BiendIT
+    email: support@biend.com.br

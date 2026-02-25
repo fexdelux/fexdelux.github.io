@@ -9,7 +9,7 @@ $ErrorActionPreference = "Stop"
 
 $CHART_DIR = "biend-wordpress-basic"
 $CHART_NAME = "biend-wordpress-basic"
-$CHARTS_OUTPUT = "../../../charts"
+$CHARTS_OUTPUT = "../../charts"
 $REPO_URL = "https://fexdelux.github.io/charts"
 
 # Funcao para output colorido
@@ -103,7 +103,7 @@ try {
 Write-Output ""
 
 Write-ColorOutput Yellow "Etapa 3: Atualizando indice do repositorio..."
-Set-Location ../../..
+Set-Location ../..
 try {
     if (Test-Path "charts\index.yaml") {
         helm repo index charts\ --url $REPO_URL --merge charts\index.yaml

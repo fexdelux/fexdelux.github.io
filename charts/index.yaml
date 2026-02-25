@@ -1,35 +1,12 @@
 apiVersion: v1
 entries:
-  biend-n8n:
-  - apiVersion: v2
-    appVersion: 1.101.1
-    created: "2026-02-24T20:59:42.7321937-03:00"
-    description: N8N workflow automation platform with CloudNativePG and autoscaling
-      support
-    digest: 326f91b319ac3e9451cb669f31cb02918dd551139eb8cc84e1cec6f5190b9f3a
-    home: https://github.com/fexdelux
-    keywords:
-    - n8n
-    - workflow
-    - automation
-    - cloudnativepg
-    maintainers:
-    - email: devops@biend.com.br
-      name: Biend DevOps Team
-    name: biend-n8n
-    sources:
-    - https://github.com/fexdelux/fexdelux.github.io
-    type: application
-    urls:
-    - https://fexdelux.github.io/charts/biend-n8n-1.0.0.tgz
-    version: 1.0.0
   biend-wordpress-basic:
   - apiVersion: v2
     appVersion: "6.4"
-    created: "2026-02-24T20:59:42.7327375-03:00"
+    created: "2026-02-25T09:27:56.5307061-03:00"
     description: WordPress básico com Nginx, PHP 8.3, MySQL/MariaDB e Redis em pods
       separados
-    digest: a240207ff041398bbc567990ff8a782abed35c11d96ae6f52ab687949dade2eb
+    digest: 6fe714dbf85093e1444122b900f99179c4b1c7153123c87e1e56d6d6ccdc5250
     home: https://github.com/fexdelux
     keywords:
     - wordpress
@@ -39,24 +16,13 @@ entries:
     - mariadb
     - redis
     maintainers:
-    - email: support@techarch.com
-      name: TechArch
+    - email: support@biend.com.br
+      name: BiendIT
     name: biend-wordpress-basic
     sources:
     - https://github.com/fexdelux/biend-wordpress-basic
     type: application
     urls:
-    - https://fexdelux.github.io/charts/biend-wordpress-basic-1.0.0.tgz
-    version: 1.0.0
-  test-chart:
-  - apiVersion: v2
-    appVersion: 1.16.0
-    created: "2026-02-24T20:59:42.7333283-03:00"
-    description: A Helm chart for Kubernetes
-    digest: 21d2dd5e7c94dc204017711dc513fcf34d7fe11635f42e18408044648251f5c9
-    name: test-chart
-    type: application
-    urls:
-    - https://fexdelux.github.io/charts/test-chart-0.1.0.tgz
-    version: 0.1.0
-generated: "2026-02-24T20:59:42.7310345-03:00"
+    - https://fexdelux.github.io/charts/biend-wordpress-basic-1.0.1.tgz
+    version: 1.0.1
+generated: "2026-02-25T09:27:56.5227745-03:00"
