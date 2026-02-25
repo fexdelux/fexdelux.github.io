@@ -20,7 +20,7 @@ wordpress:
   replicaCount: 1
   
   image:
-    repository: your-registry/wordpress-nginx-php8
+    repository: registry.biend.com.br/wordpress-nginx-php8
     tag: "latest"
     pullPolicy: IfNotPresent
   
