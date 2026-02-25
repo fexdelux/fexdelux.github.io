@@ -105,11 +105,15 @@ if [ -f /etc/php-config/php-fpm-www.conf ]; then
     cp /etc/php-config/php-fpm-www.conf /etc/php83/php-fpm.d/www.conf
 fi
 
-# Ajustar permissões
-echo "Ajustando permissões..."
-chown -R nginx:nginx /var/www/html
-find /var/www/html -type d -exec chmod 755 {} \;
-find /var/www/html -type f -exec chmod 644 {} \;
+# Ajustar permissões (pode ser desabilitado com SKIP_CHOWN=true)
+if [ "${SKIP_CHOWN}" != "true" ]; then
+    echo "Ajustando permissões..."
+    chown -R nginx:nginx /var/www/html 2>/dev/null || echo "Aviso: Não foi possível ajustar algumas permissões"
+    find /var/www/html -type d -exec chmod 755 {} \; 2>/dev/null || true
+    find /var/www/html -type f -exec chmod 644 {} \; 2>/dev/null || true
+else
+    echo "SKIP_CHOWN=true, pulando ajuste de permissões..."
+fi
 
 # Iniciar PHP-FPM em background
 echo "Iniciando PHP-FPM 8.3..."

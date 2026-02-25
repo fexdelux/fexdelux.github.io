@@ -33,7 +33,35 @@ spec:
       {{- end }}
       securityContext:
         fsGroup: 33
-        runAsUser: 0
+      initContainers:
+      - name: fix-permissions
+        image: busybox:latest
+        command:
+        - sh
+        - -c
+        - |
+          echo "Verificando permissões do volume..."
+          if [ -d /var/www/html ] && [ "$(ls -A /var/www/html)" ]; then
+            echo "Ajustando ownership para nginx:nginx (UID:GID 82:82)..."
+            chown -R 82:82 /var/www/html 2>/dev/null || true
+            echo "Ajustando permissões de diretórios (755)..."
+            find /var/www/html -type d -exec chmod 755 {} + 2>/dev/null || true
+            echo "Ajustando permissões de arquivos (644)..."
+            find /var/www/html -type f -exec chmod 644 {} + 2>/dev/null || true
+            echo "Permissões ajustadas com sucesso!"
+          else
+            echo "Volume vazio, pulando ajuste de permissões."
+          fi
+        volumeMounts:
+        - name: wordpress-data
+          mountPath: /var/www/html
+        securityContext:
+          runAsUser: 0
+          capabilities:
+            add:
+            - CHOWN
+            - FOWNER
+            - DAC_OVERRIDE
       containers:
       - name: wordpress
         image: "{{ .Values.wordpress.image.repository }}:{{ .Values.wordpress.image.tag }}"
@@ -72,6 +100,8 @@ spec:
               key: redis-password
         {{- end }}
         {{- end }}
+        - name: SKIP_CHOWN
+          value: "true"
         volumeMounts:
         - name: wordpress-data
           mountPath: /var/www/html

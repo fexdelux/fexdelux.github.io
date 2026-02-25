@@ -3,7 +3,31 @@ entries:
   biend-wordpress-basic:
   - apiVersion: v2
     appVersion: "6.4"
-    created: "2026-02-25T10:02:33.0733115-03:00"
+    created: "2026-02-25T10:11:59.6170419-03:00"
+    description: WordPress básico com Nginx, PHP 8.3, MySQL/MariaDB e Redis em pods
+      separados
+    digest: 1a704c264a852b2f15d29c1c4cfa4ee033a121cc989cc964c7e4a0992e58b929
+    home: https://github.com/fexdelux
+    keywords:
+    - wordpress
+    - nginx
+    - php
+    - mysql
+    - mariadb
+    - redis
+    maintainers:
+    - email: support@biend.com.br
+      name: BiendIT
+    name: biend-wordpress-basic
+    sources:
+    - https://github.com/fexdelux/biend-wordpress-basic
+    type: application
+    urls:
+    - https://fexdelux.github.io/charts/biend-wordpress-basic-1.0.4.tgz
+    version: 1.0.4
+  - apiVersion: v2
+    appVersion: "6.4"
+    created: "2026-02-25T10:11:59.6164906-03:00"
     description: WordPress básico com Nginx, PHP 8.3, MySQL/MariaDB e Redis em pods
       separados
     digest: fce0747dcb1519c1c75b41be02f2228011d94c77ad7a51043bba83857a8eebf4
@@ -27,7 +51,7 @@ entries:
     version: 1.0.3
   - apiVersion: v2
     appVersion: "6.4"
-    created: "2026-02-25T10:02:33.07235-03:00"
+    created: "2026-02-25T10:11:59.6159718-03:00"
     description: WordPress básico com Nginx, PHP 8.3, MySQL/MariaDB e Redis em pods
       separados
     digest: 516325c1231ef6a5d03893e12ebd80b0d425d1b6c8f6017935a44cc808426b43
@@ -51,7 +75,7 @@ entries:
     version: 1.0.2
   - apiVersion: v2
     appVersion: "6.4"
-    created: "2026-02-25T10:02:33.0717391-03:00"
+    created: "2026-02-25T10:11:59.6143596-03:00"
     description: WordPress básico com Nginx, PHP 8.3, MySQL/MariaDB e Redis em pods
       separados
     digest: 6fe714dbf85093e1444122b900f99179c4b1c7153123c87e1e56d6d6ccdc5250
@@ -75,7 +99,7 @@ entries:
     version: 1.0.1
   - apiVersion: v2
     appVersion: "6.4"
-    created: "2026-02-25T10:02:33.0704538-03:00"
+    created: "2026-02-25T10:11:59.612674-03:00"
     description: WordPress básico com Nginx, PHP 8.3, MySQL/MariaDB e Redis em pods
       separados
     digest: a240207ff041398bbc567990ff8a782abed35c11d96ae6f52ab687949dade2eb
@@ -97,4 +121,4 @@ entries:
     urls:
     - https://fexdelux.github.io/charts/biend-wordpress-basic-1.0.0.tgz
     version: 1.0.0
-generated: "2026-02-25T10:02:33.0693082-03:00"
+generated: "2026-02-25T10:11:59.6110482-03:00"
