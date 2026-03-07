@@ -8,10 +8,6 @@ metadata:
 spec:
   type: {{ .Values.wordpress.service.type }}
   ports:
-  - port: {{ .Values.wordpress.service.port }}
-    targetPort: http
-    protocol: TCP
-    name: http
   - port: {{ .Values.wordpress.service.httpsPort }}
     targetPort: https
     protocol: TCP

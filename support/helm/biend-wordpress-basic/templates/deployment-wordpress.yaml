@@ -68,10 +68,10 @@ spec:
         imagePullPolicy: {{ .Values.wordpress.image.pullPolicy }}
         ports:
         - name: http
-          containerPort: 80
+          containerPort: {{ .Values.wordpress.service.port }}
           protocol: TCP
         - name: https
-          containerPort: 443
+          containerPort: {{ .Values.wordpress.service.httpsPort }}
           protocol: TCP
         env:
         - name: WORDPRESS_DB_HOST
