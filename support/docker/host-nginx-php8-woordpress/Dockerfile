@@ -63,6 +63,7 @@ RUN mkdir -p /var/log/php-fpm /etc/nginx/ssl && \
 EXPOSE 80 443
 WORKDIR /var/www/html
 
+VOLUME ["/var/www/html", "/var/log/php-fpm", "/var/log/nginx", "/etc/nginx/ssl"]
 ENTRYPOINT ["docker-entrypoint.sh"]
 
 
