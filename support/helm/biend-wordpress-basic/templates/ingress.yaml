@@ -5,10 +5,13 @@ metadata:
   name: {{ include "biend-wordpress-basic.fullname" . }}-ingress
   labels:
     {{- include "biend-wordpress-basic.labels" . | nindent 4 }}
-  {{- with .Values.ingress.annotations }}
   annotations:
+    # Backend usa HTTPS (certificado autoassinado para HTTP/2)
+    nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    {{- with .Values.ingress.annotations }}
     {{- toYaml . | nindent 4 }}
-  {{- end }}
+    {{- end }}
 spec:
   {{- if .Values.ingress.className }}
   ingressClassName: {{ .Values.ingress.className }}
@@ -35,7 +38,7 @@ spec:
           service:
             name: {{ include "biend-wordpress-basic.fullname" $ }}-wordpress
             port:
-              number: {{ $.Values.wordpress.service.port }}
+              number: {{ $.Values.wordpress.service.httpsPort }}
       {{- end }}
   {{- end }}
 {{- end }}
