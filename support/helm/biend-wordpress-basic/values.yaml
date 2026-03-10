@@ -6,13 +6,19 @@ global:
 certificate:
   enabled: true
   # Nome comum do certificado (CN)
-  commonName: "wordpress.local"
+  commonName: "*.local"
   # Organização
   organization: "BiendIT"
-  # DNS alternativos (SANs)
+  # DNS alternativos (SANs) - wildcards para máxima flexibilidade
   dnsNames:
-    - "*.wordpress.local"
+    - "*.local"
+    - "*.svc"
+    - "*.svc.cluster.local"
     - "localhost"
+  # IPs adicionais (opcional) - adicione IPs específicos se necessário
+  ipAddresses:
+    - "127.0.0.1"
+    - "::1"
 
 # Configurações do WordPress (Nginx + PHP 8.3)
 wordpress:

@@ -22,6 +22,12 @@ spec:
     {{- range .Values.certificate.dnsNames }}
     - {{ . | quote }}
     {{- end }}
+  {{- if .Values.certificate.ipAddresses }}
+  ipAddresses:
+    {{- range .Values.certificate.ipAddresses }}
+    - {{ . | quote }}
+    {{- end }}
+  {{- end }}
   issuerRef:
     name: {{ include "biend-wordpress-basic.fullname" . }}-selfsigned
     kind: Issuer
