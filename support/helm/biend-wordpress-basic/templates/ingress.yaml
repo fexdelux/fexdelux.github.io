@@ -38,7 +38,7 @@ spec:
           service:
             name: {{ include "biend-wordpress-basic.fullname" $ }}-wordpress
             port:
-              number: {{ $.Values.wordpress.service.httpsPort }}
+              number: {{ $.Values.wordpress.service.port }}
       {{- end }}
   {{- end }}
 {{- end }}

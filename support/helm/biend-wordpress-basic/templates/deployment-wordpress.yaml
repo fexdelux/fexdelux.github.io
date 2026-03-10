@@ -67,11 +67,8 @@ spec:
         image: "{{ .Values.wordpress.image.repository }}:{{ .Values.wordpress.image.tag }}"
         imagePullPolicy: {{ .Values.wordpress.image.pullPolicy }}
         ports:
-        - name: http
-          containerPort: {{ .Values.wordpress.service.port }}
-          protocol: TCP
         - name: https
-          containerPort: {{ .Values.wordpress.service.httpsPort }}
+          containerPort: {{ .Values.wordpress.service.port }}
           protocol: TCP
         env:
         - name: WORDPRESS_DB_HOST

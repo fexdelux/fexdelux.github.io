@@ -8,7 +8,7 @@ metadata:
 spec:
   type: {{ .Values.wordpress.service.type }}
   ports:
-  - port: {{ .Values.wordpress.service.httpsPort }}
+  - port: {{ .Values.wordpress.service.port }}
     targetPort: https
     protocol: TCP
     name: https

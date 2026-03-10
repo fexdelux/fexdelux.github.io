@@ -33,7 +33,7 @@ wordpress:
   service:
     type: ClusterIP
     port: 443
-    httpsPort: 443
+
   
   resources:
     requests:
