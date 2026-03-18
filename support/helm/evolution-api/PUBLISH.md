@@ -29,10 +29,17 @@ Script PowerShell para publicar o Helm Chart do Evolution API no repositório Gi
 
 ## O que o script faz
 
-1. ✅ Valida o chart com `helm lint`
-2. 📦 Empacota o chart (.tgz)
-3. 📝 Atualiza o `charts/index.yaml`
-4. 📋 Exibe instruções para commit e push
+1. 🔧 **Corrige line endings** (CRLF → LF) para compatibilidade Linux
+2. ✅ Valida o chart com `helm lint`
+3. 📦 Empacota o chart (.tgz)
+4. 📝 Atualiza o `charts/index.yaml`
+5. 📋 Exibe instruções para commit e push
+
+### Importante: Line Endings
+
+O script **automaticamente converte** todos os arquivos de CRLF (Windows) para LF (Unix/Linux) antes de empacotar. Isso previne o erro de caracteres `^M` ao instalar o chart em servidores Linux/Kubernetes.
+
+**Proteção adicional**: O arquivo `.gitattributes` garante que os commits sempre usem LF para arquivos YAML/YML/TPL.
 
 ## Após a publicação
 
@@ -118,3 +125,24 @@ Siga o [Semantic Versioning](https://semver.org/):
 
 ### Erro: "Helm não instalado"
 - Instale o Helm: https://helm.sh/docs/intro/install/
+
+### Erro: Caracteres `^M` ou problemas de parse no Kubernetes
+Este erro geralmente aparece como:
+```
+error: error parsing deployment-evolution.yaml: error converting YAML to JSON
+```
+
+**Causa**: Arquivos com line endings CRLF (Windows) ao invés de LF (Unix/Linux)
+
+**Solução**: O script de publicação **automaticamente corrige** isso. Se o problema persistir:
+
+```bash
+# Converter manualmente todos os arquivos
+cd support/helm/evolution-api
+find . -name "*.yaml" -o -name "*.yml" -o -name "*.tpl" | xargs sed -i 's/\r$//'
+
+# Verificar conversão
+file values.yaml  # Deve mostrar "ASCII text" ou "UTF-8 text" (sem CRLF)
+```
+
+**Prevenção**: O arquivo `.gitattributes` força LF nos commits futuros.

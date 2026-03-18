@@ -51,7 +51,24 @@ try {
 }
 Write-Output ""
 
-Write-ColorOutput Yellow "Etapa 1: Validando o chart..."
+Write-ColorOutput Yellow "Etapa 1: Corrigindo line endings (CRLF -> LF)..."
+try {
+    # Converter arquivos de CRLF para LF (compatibilidade Linux/Kubernetes)
+    $files = Get-ChildItem -Recurse -Include *.yaml,*.yml,*.tpl,*.txt,*.md
+    foreach ($file in $files) {
+        $content = Get-Content $file.FullName -Raw
+        if ($content -match "`r`n") {
+            $content = $content -replace "`r`n", "`n"
+            [System.IO.File]::WriteAllText($file.FullName, $content)
+        }
+    }
+    Write-ColorOutput Green "Line endings corrigidos (Unix LF)!"
+} catch {
+    Write-ColorOutput Yellow "Aviso: Nao foi possivel corrigir line endings automaticamente."
+}
+Write-Output ""
+
+Write-ColorOutput Yellow "Etapa 2: Validando o chart..."
 try {
     helm lint $CHART_DIR
     Write-ColorOutput Green "Chart validado com sucesso!"
@@ -93,7 +110,7 @@ if (Test-Path $packagePath) {
     Remove-Item $packagePath -Force
 }
 
-Write-ColorOutput Yellow "Etapa 2: Empacotando o chart..."
+Write-ColorOutput Yellow "Etapa 3: Empacotando o chart..."
 try {
     helm package $CHART_DIR -d $CHARTS_OUTPUT
     Write-ColorOutput Green "Chart empacotado: $CHART_NAME-$CHART_VERSION.tgz"
@@ -103,7 +120,7 @@ try {
 }
 Write-Output ""
 
-Write-ColorOutput Yellow "Etapa 3: Atualizando indice do repositorio..."
+Write-ColorOutput Yellow "Etapa 4: Atualizando indice do repositorio..."
 $originalLocation = Get-Location
 Set-Location ../../..
 try {

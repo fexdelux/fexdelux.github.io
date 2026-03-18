@@ -1,0 +1,12 @@
+# Força line endings Unix (LF) para arquivos do Helm Chart
+# Isso previne problemas com caracteres ^M em servidores Linux/Kubernetes
+
+*.yaml text eol=lf
+*.yml text eol=lf
+*.tpl text eol=lf
+*.txt text eol=lf
+*.md text eol=lf
+*.sh text eol=lf
+
+# PowerShell scripts mantém CRLF (Windows)
+*.ps1 text eol=crlf
