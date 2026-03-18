@@ -1,0 +1,124 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "evolution-api.fullname" . }}
+  labels:
+    {{- include "evolution-api.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "evolution-api.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "evolution-api.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "evolution-api.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+      - name: {{ .Chart.Name }}
+        securityContext:
+          {{- toYaml .Values.securityContext | nindent 12 }}
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        ports:
+        - name: http
+          containerPort: {{ .Values.service.targetPort }}
+          protocol: TCP
+        env:
+        - name: SERVER_URL
+          value: {{ .Values.evolution.serverUrl | quote }}
+        - name: AUTHENTICATION_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: {{ include "evolution-api.fullname" . }}-secret
+              key: api-key
+        - name: LOG_LEVEL
+          value: {{ .Values.evolution.logLevel | quote }}
+        - name: LOG_BAILEYS
+          value: {{ .Values.evolution.logBaileys | quote }}
+        {{- if or .Values.postgresql.enabled .Values.externalDatabase.enabled }}
+        - name: DATABASE_PROVIDER
+          value: "postgresql"
+        - name: DATABASE_CONNECTION_URI
+          valueFrom:
+            secretKeyRef:
+              name: {{ include "evolution-api.fullname" . }}-secret
+              key: database-uri
+        {{- end }}
+        {{- if or .Values.redis.enabled .Values.externalRedis.enabled }}
+        - name: CACHE_REDIS_ENABLED
+          value: "true"
+        - name: CACHE_REDIS_URI
+          valueFrom:
+            secretKeyRef:
+              name: {{ include "evolution-api.fullname" . }}-secret
+              key: redis-uri
+        {{- end }}
+        {{- if .Values.s3.enabled }}
+        - name: S3_ENABLED
+          value: "true"
+        - name: S3_ACCESS_KEY
+          valueFrom:
+            secretKeyRef:
+              name: {{ include "evolution-api.fullname" . }}-secret
+              key: s3-access-key
+        - name: S3_SECRET_KEY
+          valueFrom:
+            secretKeyRef:
+              name: {{ include "evolution-api.fullname" . }}-secret
+              key: s3-secret-key
+        - name: S3_BUCKET
+          value: {{ .Values.s3.bucket | quote }}
+        - name: S3_PORT
+          value: {{ .Values.s3.port | quote }}
+        - name: S3_ENDPOINT
+          value: {{ .Values.s3.endpoint | quote }}
+        - name: S3_USE_SSL
+          value: {{ .Values.s3.useSSL | quote }}
+        - name: S3_REGION
+          value: {{ .Values.s3.region | quote }}
+        {{- end }}
+        {{- with .Values.evolution.extraEnv }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+        resources:
+          {{- toYaml .Values.evolution.resources | nindent 12 }}
+        livenessProbe:
+          httpGet:
+            path: /
+            port: http
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
+        readinessProbe:
+          httpGet:
+            path: /
+            port: http
+          initialDelaySeconds: 10
+          periodSeconds: 5
+          timeoutSeconds: 3
+          failureThreshold: 3
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}

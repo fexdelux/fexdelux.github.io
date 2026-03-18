@@ -3,7 +3,7 @@ entries:
   biend-wordpress-basic:
   - apiVersion: v2
     appVersion: "6.4"
-    created: "2026-03-09T23:16:40.1502-03:00"
+    created: "2026-03-18T16:38:28.9672108-03:00"
     description: WordPress básico com Nginx, PHP 8.3, MySQL/MariaDB e Redis em pods
       separados
     digest: 95ed22c1fe88bb84ae9feb057659ae7c70dde50da39d47fa654f56d2a991a7eb
@@ -27,7 +27,7 @@ entries:
     version: 1.1.2
   - apiVersion: v2
     appVersion: "6.4"
-    created: "2026-03-09T23:16:40.1495972-03:00"
+    created: "2026-03-18T16:38:28.9664232-03:00"
     description: WordPress básico com Nginx, PHP 8.3, MySQL/MariaDB e Redis em pods
       separados
     digest: dd7d84e7d6debcc375f6d461cea0a8d69600055d34afb5674cd90b6ea648f670
@@ -51,7 +51,7 @@ entries:
     version: 1.1.1
   - apiVersion: v2
     appVersion: "6.4"
-    created: "2026-03-09T23:16:40.1484361-03:00"
+    created: "2026-03-18T16:38:28.9658348-03:00"
     description: WordPress básico com Nginx, PHP 8.3, MySQL/MariaDB e Redis em pods
       separados
     digest: d1db0567d1c3579b9fd51c0690b8fbe86ce935a41a191dbaf5297a4aad3cb1ef
@@ -75,7 +75,7 @@ entries:
     version: 1.0.9
   - apiVersion: v2
     appVersion: "6.4"
-    created: "2026-03-09T23:16:40.1478369-03:00"
+    created: "2026-03-18T16:38:28.9646229-03:00"
     description: WordPress básico com Nginx, PHP 8.3, MySQL/MariaDB e Redis em pods
       separados
     digest: f35ca2a28fd1f5fe25884eb881a61eb669282624917664de41978211c828939f
@@ -99,7 +99,7 @@ entries:
     version: 1.0.7
   - apiVersion: v2
     appVersion: "6.4"
-    created: "2026-03-09T23:16:40.1472634-03:00"
+    created: "2026-03-18T16:38:28.9634549-03:00"
     description: WordPress básico com Nginx, PHP 8.3, MySQL/MariaDB e Redis em pods
       separados
     digest: ea64d6e8e50f30d3d76b9d7734ff2405bc38dccdc7eb89870832fe8bc98231a1
@@ -123,7 +123,7 @@ entries:
     version: 1.0.6
   - apiVersion: v2
     appVersion: "6.4"
-    created: "2026-03-09T23:16:40.1461648-03:00"
+    created: "2026-03-18T16:38:28.9628661-03:00"
     description: WordPress básico com Nginx, PHP 8.3, MySQL/MariaDB e Redis em pods
       separados
     digest: 0d9d46513d35f878c76f7e2f75d90695948e4e53bf0265d51d6486d2944d3473
@@ -147,7 +147,7 @@ entries:
     version: 1.0.5
   - apiVersion: v2
     appVersion: "6.4"
-    created: "2026-03-09T23:16:40.1455469-03:00"
+    created: "2026-03-18T16:38:28.962274-03:00"
     description: WordPress básico com Nginx, PHP 8.3, MySQL/MariaDB e Redis em pods
       separados
     digest: 1a704c264a852b2f15d29c1c4cfa4ee033a121cc989cc964c7e4a0992e58b929
@@ -171,7 +171,7 @@ entries:
     version: 1.0.4
   - apiVersion: v2
     appVersion: "6.4"
-    created: "2026-03-09T23:16:40.1449698-03:00"
+    created: "2026-03-18T16:38:28.9616788-03:00"
     description: WordPress básico com Nginx, PHP 8.3, MySQL/MariaDB e Redis em pods
       separados
     digest: fce0747dcb1519c1c75b41be02f2228011d94c77ad7a51043bba83857a8eebf4
@@ -195,7 +195,7 @@ entries:
     version: 1.0.3
   - apiVersion: v2
     appVersion: "6.4"
-    created: "2026-03-09T23:16:40.1438575-03:00"
+    created: "2026-03-18T16:38:28.9605585-03:00"
     description: WordPress básico com Nginx, PHP 8.3, MySQL/MariaDB e Redis em pods
       separados
     digest: 516325c1231ef6a5d03893e12ebd80b0d425d1b6c8f6017935a44cc808426b43
@@ -219,7 +219,7 @@ entries:
     version: 1.0.2
   - apiVersion: v2
     appVersion: "6.4"
-    created: "2026-03-09T23:16:40.1422711-03:00"
+    created: "2026-03-18T16:38:28.96002-03:00"
     description: WordPress básico com Nginx, PHP 8.3, MySQL/MariaDB e Redis em pods
       separados
     digest: 6fe714dbf85093e1444122b900f99179c4b1c7153123c87e1e56d6d6ccdc5250
@@ -243,7 +243,7 @@ entries:
     version: 1.0.1
   - apiVersion: v2
     appVersion: "6.4"
-    created: "2026-03-09T23:16:40.1417337-03:00"
+    created: "2026-03-18T16:38:28.959503-03:00"
     description: WordPress básico com Nginx, PHP 8.3, MySQL/MariaDB e Redis em pods
       separados
     digest: a240207ff041398bbc567990ff8a782abed35c11d96ae6f52ab687949dade2eb
@@ -265,4 +265,26 @@ entries:
     urls:
     - https://fexdelux.github.io/charts/biend-wordpress-basic-1.0.0.tgz
     version: 1.0.0
-generated: "2026-03-09T23:16:40.1401298-03:00"
+  evolution-api:
+  - apiVersion: v2
+    appVersion: latest
+    created: "2026-03-18T16:38:28.9677612-03:00"
+    description: Evolution API - WhatsApp Multi-Device API
+    digest: fe4f3233c805989ad3897bc0fcf515943c306d319ae2c773a9558e0d6fc1ae55
+    home: https://github.com/EvolutionAPI/evolution-api
+    keywords:
+    - evolution
+    - whatsapp
+    - api
+    - messaging
+    maintainers:
+    - email: support@biend.com.br
+      name: BIEND
+    name: evolution-api
+    sources:
+    - https://github.com/EvolutionAPI/evolution-api
+    type: application
+    urls:
+    - https://fexdelux.github.io/charts/evolution-api-1.0.0.tgz
+    version: 1.0.0
+generated: "2026-03-18T16:38:28.9581878-03:00"

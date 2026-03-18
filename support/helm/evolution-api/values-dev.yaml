@@ -1,0 +1,61 @@
+# Exemplo: Evolution API - Desenvolvimento
+
+evolution:
+  serverUrl: "http://localhost:8081"
+  authenticationApiKey: "dev-key-123"
+  
+  resources:
+    limits:
+      cpu: 500m
+      memory: 512Mi
+    requests:
+      cpu: 250m
+      memory: 256Mi
+
+# PostgreSQL interno SEM persistência
+postgresql:
+  enabled: true
+  auth:
+    password: "dev-password"
+  primary:
+    persistence:
+      enabled: false  # Dados não persistem entre restarts
+  resources:
+    limits:
+      cpu: 250m
+      memory: 256Mi
+    requests:
+      cpu: 100m
+      memory: 128Mi
+
+# Redis interno SEM persistência
+redis:
+  enabled: true
+  master:
+    persistence:
+      enabled: false  # Dados não persistem entre restarts
+  resources:
+    limits:
+      cpu: 250m
+      memory: 256Mi
+    requests:
+      cpu: 100m
+      memory: 128Mi
+
+# S3 Storage (desabilitado para dev - opcional usar MinIO local)
+# s3:
+#   enabled: true
+#   accessKey: "minioadmin"
+#   secretKey: "minioadmin"
+#   bucket: "evolution-dev"
+#   port: 9000
+#   endpoint: "minio.local:9000"
+#   useSSL: false
+#   region: "us-east-1"
+
+# Sem Ingress (usar port-forward)
+ingress:
+  enabled: false
+
+# Apenas 1 réplica
+replicaCount: 1

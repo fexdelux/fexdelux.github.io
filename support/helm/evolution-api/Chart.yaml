@@ -1,0 +1,17 @@
+apiVersion: v2
+name: evolution-api
+description: Evolution API - WhatsApp Multi-Device API
+type: application
+version: 1.0.0
+appVersion: "latest"
+keywords:
+  - evolution
+  - whatsapp
+  - api
+  - messaging
+home: https://github.com/EvolutionAPI/evolution-api
+sources:
+  - https://github.com/EvolutionAPI/evolution-api
+maintainers:
+  - name: BIEND
+    email: support@biend.com.br

@@ -1,0 +1,81 @@
+# Exemplo: Evolution API - Produção com PostgreSQL e Redis Externos
+
+evolution:
+  serverUrl: "https://evolution.meudominio.com"
+  authenticationApiKey: "minha-chave-super-segura-xyz123"
+  
+  resources:
+    limits:
+      cpu: 2000m
+      memory: 2Gi
+    requests:
+      cpu: 1000m
+      memory: 1Gi
+
+# Desabilitar PostgreSQL interno
+postgresql:
+  enabled: false
+
+# Usar PostgreSQL externo (ex: RDS, Cloud SQL, etc)
+externalDatabase:
+  enabled: true
+  host: "postgres-prod.xyz.us-east-1.rds.amazonaws.com"
+  port: 5432
+  username: "evolution_user"
+  password: "senha-super-segura-postgres"
+  database: "evolution_prod"
+  schema: "evolution_api"
+
+# Desabilitar Redis interno
+redis:
+  enabled: false
+
+# Usar Redis externo (ex: ElastiCache, MemoryStore, etc)
+externalRedis:
+  enabled: true
+  host: "redis-prod.xyz.cache.amazonaws.com"
+  port: 6379
+  database: 6
+
+# S3 Storage (AWS S3 ou MinIO)
+s3:
+  enabled: true
+  accessKey: "AKIAIOSFODNN7EXAMPLE"
+  secretKey: "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"
+  bucket: "evolution-prod"
+  port: 443
+  endpoint: "s3.us-east-1.amazonaws.com"
+  useSSL: true
+  region: "us-east-1"
+
+# Ingress com HTTPS
+ingress:
+  enabled: true
+  className: "nginx"
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    nginx.ingress.kubernetes.io/proxy-body-size: "100m"
+  hosts:
+    - host: evolution.meudominio.com
+      paths:
+        - path: /
+          pathType: Prefix
+  tls:
+    - secretName: evolution-tls-cert
+      hosts:
+        - evolution.meudominio.com
+
+# Alta disponibilidade
+replicaCount: 2
+
+# Configurações de segurança
+podSecurityContext:
+  runAsNonRoot: true
+  runAsUser: 1000
+  fsGroup: 1000
+
+securityContext:
+  allowPrivilegeEscalation: false
+  capabilities:
+    drop:
+    - ALL

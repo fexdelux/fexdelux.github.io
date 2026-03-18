@@ -1,0 +1,95 @@
+Evolution API foi instalado com sucesso!
+
+NOME DO RELEASE: {{ .Release.Name }}
+NAMESPACE: {{ .Release.Namespace }}
+
+Para acessar a Evolution API:
+
+{{- if .Values.ingress.enabled }}
+  
+  Acesse através do Ingress:
+  {{- range .Values.ingress.hosts }}
+  - http{{ if $.Values.ingress.tls }}s{{ end }}://{{ .host }}
+  {{- end }}
+
+{{- else if contains "NodePort" .Values.service.type }}
+
+  export NODE_PORT=$(kubectl get --namespace {{ .Release.Namespace }} -o jsonpath="{.spec.ports[0].nodePort}" services {{ include "evolution-api.fullname" . }})
+  export NODE_IP=$(kubectl get nodes --namespace {{ .Release.Namespace }} -o jsonpath="{.items[0].status.addresses[0].address}")
+  echo http://$NODE_IP:$NODE_PORT
+
+{{- else if contains "LoadBalancer" .Values.service.type }}
+
+  NOTA: Pode levar alguns minutos até o LoadBalancer estar disponível.
+  
+  export SERVICE_IP=$(kubectl get svc --namespace {{ .Release.Namespace }} {{ include "evolution-api.fullname" . }} --template "{{"{{ range (index .status.loadBalancer.ingress 0) }}{{.}}{{ end }}"}}")
+  echo http://$SERVICE_IP:{{ .Values.service.port }}
+
+{{- else if contains "ClusterIP" .Values.service.type }}
+
+  Execute os comandos para fazer port-forward:
+  
+  export POD_NAME=$(kubectl get pods --namespace {{ .Release.Namespace }} -l "app.kubernetes.io/name={{ include "evolution-api.name" . }},app.kubernetes.io/instance={{ .Release.Name }}" -o jsonpath="{.items[0].metadata.name}")
+  kubectl --namespace {{ .Release.Namespace }} port-forward $POD_NAME 8080:8080
+  
+  Depois acesse: http://127.0.0.1:8080
+
+{{- end }}
+
+COMPONENTES INSTALADOS:
+- Evolution API: {{ if .Values.replicaCount }}{{ .Values.replicaCount }} réplica(s){{ end }}
+{{- if .Values.postgresql.enabled }}
+- PostgreSQL: Habilitado (interno)
+{{- else if .Values.externalDatabase.enabled }}
+- PostgreSQL: Usando banco externo em {{ .Values.externalDatabase.host }}
+{{- else }}
+- PostgreSQL: Desabilitado
+{{- end }}
+{{- if .Values.redis.enabled }}
+- Redis: Habilitado (interno)
+{{- else if .Values.externalRedis.enabled }}
+- Redis: Usando Redis externo em {{ .Values.externalRedis.host }}
+{{- else }}
+- Redis: Desabilitado
+{{- end }}
+{{- if .Values.s3.enabled }}
+- S3/MinIO: Habilitado (bucket: {{ .Values.s3.bucket }})
+{{- else }}
+- S3/MinIO: Desabilitado
+{{- end }}
+
+CREDENCIAIS E ACESSO:
+
+API KEY:
+{{- if .Values.evolution.authenticationApiKey }}
+  {{ .Values.evolution.authenticationApiKey }}
+{{- else }}
+  Execute o comando para obter a key gerada:
+  kubectl get secret --namespace {{ .Release.Namespace }} {{ include "evolution-api.fullname" . }}-secret -o jsonpath="{.data.api-key}" | base64 --decode && echo
+{{- end }}
+
+ENDEREÇOS DE ACESSO:
+
+{{- if .Values.ingress.enabled }}
+Via Ingress (público):
+  {{- range .Values.ingress.hosts }}
+  http{{ if $.Values.ingress.tls }}s{{ end }}://{{ .host }}
+  {{- end }}
+{{- end }}
+
+Via ClusterIP (interno - mesmo namespace):
+  http://evolution-api:{{ .Values.service.port }}
+
+Via ClusterIP (outros namespaces):
+  http://{{ include "evolution-api.fullname" . }}.{{ .Release.Namespace }}.svc.cluster.local:{{ .Values.service.port }}
+
+COMANDOS ÚTEIS:
+
+Status dos pods:
+  kubectl get pods --namespace {{ .Release.Namespace }} -l "app.kubernetes.io/instance={{ .Release.Name }}"
+
+Logs da aplicação:
+  kubectl logs --namespace {{ .Release.Namespace }} -l "app.kubernetes.io/name={{ include "evolution-api.name" . }}" -f
+
+Verificar serviço:
+  kubectl get svc --namespace {{ .Release.Namespace }} {{ include "evolution-api.fullname" . }}

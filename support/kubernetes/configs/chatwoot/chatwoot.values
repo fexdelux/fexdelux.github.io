@@ -4,7 +4,7 @@
 # Overrides the image tag whose default is the chart appVersion.
 image:
   repository: chatwoot/chatwoot
-  tag: v4.7.0
+  tag: v4.12.0
   pullPolicy: IfNotPresent
 
 # Set to autoscaling/v2beta2 for older versions of kubernetes that do not have autoscaling/v2 API (pre v1.26)
@@ -101,9 +101,12 @@ ingress:
   ingressClassName: nginx
   annotations: 
     kubernetes.io/ingress.class: nginx
-    # kubernetes.io/tls-acme: "true"
+    cert-manager.io/cluster-issuer: letsencrypt
+    nginx.ingress.kubernetes.io/proxy-body-size: "0"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "120"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "120"
   hosts:
-    - host: chat.fexdelux.local
+    - host: "chat.localtourapp.com.br"
       paths:
         - path: /
           pathType: Prefix
@@ -112,10 +115,10 @@ ingress:
               name: chatwoot
               port:
                 number: 3000
-  tls: []
-  #  - secretName: chart-example-tls
-  #    hosts:
-  #      - chart-example.local
+  tls: 
+    - secretName: chat.localtourapp.com.br-tls
+      hosts:
+        - chat.localtourapp.com.br
 
 nodeSelector: {}
 
@@ -193,17 +196,17 @@ env:
   AWS_REGION: ""
   AWS_SECRET_ACCESS_KEY: ""
   ENABLE_ACCOUNT_SIGNUP: false
-  FB_APP_ID: ""
-  FB_APP_SECRET: ""
-  FB_VERIFY_TOKEN: ""
+  FB_APP_ID: "1277837567362349"
+  FB_APP_SECRET: "761a39c8f529ac8daad01da4cded9ed3"
+  FB_VERIFY_TOKEN: "6220d90a65de1c48d54d4baae3c560ce"
   FORCE_SSL: false
-  FRONTEND_URL: "http://chat.fexdelux.local"
+  FRONTEND_URL: "https://chat.localtourapp.com.br"
   INSTALLATION_ENV: helm
   IOS_APP_ID: 6C953F3RX2.com.chatwoot.app
   LOG_LEVEL: info
   LOG_SIZE: 500
   MAILER_INBOUND_EMAIL_DOMAIN: ""
-  MAILER_SENDER_EMAIL: ""
+  MAILER_SENDER_EMAIL: "contato@localtour.tur.br"
   MAILGUN_INGRESS_SIGNING_KEY: ""
   MANDRILL_INGRESS_API_KEY: ""
   RAILS_ENV: production
@@ -219,13 +222,15 @@ env:
   SENTRY_DSN: ""
   SLACK_CLIENT_ID: ""
   SLACK_CLIENT_SECRET: ""
-  SMTP_ADDRESS: ""
-  SMTP_AUTHENTICATION: plain
+  SMTP_ADDRESS: "smtp.office365.com"
+  SMTP_AUTHENTICATION: login
+  SMTP_DOMAIN: "localtour.tur.br"
   SMTP_ENABLE_STARTTLS_AUTO: true
   SMTP_OPENSSL_VERIFY_MODE: none
-  SMTP_PASSWORD: ""
+  SMTP_PASSWORD: "Localtour@224!9560"
   SMTP_PORT: 587
-  SMTP_USERNAME: ""
+  SMTP_TLS: false
+  SMTP_USERNAME: "contato@localtour.tur.br"
   TWITTER_APP_ID: ""
   TWITTER_CONSUMER_KEY: ""
   TWITTER_CONSUMER_SECRET: ""

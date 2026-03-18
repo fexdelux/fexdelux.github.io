@@ -1,0 +1,165 @@
+# Configurações padrão do Evolution API
+
+replicaCount: 1
+
+image:
+  repository: evoapicloud/evolution-api
+  pullPolicy: IfNotPresent
+  tag: "latest"
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  create: false
+  annotations: {}
+  name: ""
+
+# Configurações do Evolution API
+evolution:
+  serverUrl: "http://evolution-api.local"
+  # authenticationApiKey: Se deixar vazio, será gerado automaticamente (UUID + 25 caracteres aleatórios)
+  # Para definir uma chave customizada, descomente e configure abaixo:
+  # authenticationApiKey: "sua-chave-customizada-aqui"
+  authenticationApiKey: ""
+  logLevel: "ERROR,WARN,DEBUG,INFO,LOG,VERBOSE"
+  logBaileys: "error"
+  
+  # Configurações de recursos
+  resources:
+    limits:
+      cpu: 1000m
+      memory: 1Gi
+    requests:
+      cpu: 500m
+      memory: 512Mi
+
+  # Variáveis de ambiente adicionais
+  extraEnv: []
+  # - name: CUSTOM_VAR
+  #   value: "custom-value"
+
+service:
+  type: ClusterIP
+  port: 8080
+  targetPort: 8080
+  annotations: {}
+
+ingress:
+  enabled: false
+  className: ""
+  annotations: {}
+    # kubernetes.io/ingress.class: nginx
+    # cert-manager.io/cluster-issuer: letsencrypt-prod
+  hosts:
+    - host: evolution-api.local
+      paths:
+        - path: /
+          pathType: Prefix
+  tls: []
+  #  - secretName: evolution-api-tls
+  #    hosts:
+  #      - evolution-api.local
+
+# PostgreSQL
+postgresql:
+  enabled: true
+  image:
+    repository: postgres
+    tag: "15"
+  auth:
+    username: postgres
+    password: "password"
+    database: evolution
+  primary:
+    persistence:
+      enabled: true
+      size: 10Gi
+      storageClass: ""
+  resources:
+    limits:
+      cpu: 500m
+      memory: 512Mi
+    requests:
+      cpu: 250m
+      memory: 256Mi
+  service:
+    port: 5432
+
+# Redis
+redis:
+  enabled: true
+  image:
+    repository: redis
+    tag: "7-alpine"
+  auth:
+    enabled: false
+  master:
+    persistence:
+      enabled: true
+      size: 5Gi
+      storageClass: ""
+  resources:
+    limits:
+      cpu: 500m
+      memory: 512Mi
+    requests:
+      cpu: 250m
+      memory: 256Mi
+  service:
+    port: 6379
+
+# Configurações externas (quando postgres/redis estão desabilitados)
+externalDatabase:
+  enabled: false
+  host: ""
+  port: 5432
+  username: postgres
+  password: ""
+  database: evolution
+  schema: evolution_api
+
+externalRedis:
+  enabled: false
+  host: ""
+  port: 6379
+  database: 6
+
+# S3 / MinIO Storage
+s3:
+  enabled: false
+  accessKey: ""
+  secretKey: ""
+  bucket: "evolution"
+  port: 443
+  endpoint: ""
+  useSSL: true
+  region: "us-east-1"
+  # Exemplo AWS: s3.us-east-1.amazonaws.com
+  # Exemplo MinIO: minio.exemplo.com
+
+# Node selector
+nodeSelector: {}
+
+# Tolerations
+tolerations: []
+
+# Affinity
+affinity: {}
+
+# Pod annotations
+podAnnotations: {}
+
+# Pod security context
+podSecurityContext: {}
+  # fsGroup: 2000
+
+# Container security context
+securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000

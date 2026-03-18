@@ -1,0 +1,55 @@
+services:
+  evolution-api:
+    image: evoapicloud/evolution-api:latest
+    container_name: evolution_api
+    restart: unless-stopped
+    ports:
+      - "8081:8080"
+    environment:
+      SERVER_URL: http://localhost:8081
+      DATABASE_PROVIDER: postgresql
+      DATABASE_CONNECTION_URI: postgresql://postgres:password@postgres:5432/evolution?schema=evolution_api
+      CACHE_REDIS_ENABLED: "true"
+      CACHE_REDIS_URI: redis://redis:6379/6
+      AUTHENTICATION_API_KEY: sua-chave-segura-aqui
+      LOG_LEVEL: ERROR,WARN,DEBUG,INFO,LOG,VERBOSE
+      LOG_BAILEYS: error
+    depends_on:
+      - postgres
+      - redis
+    networks:
+      - evolution-net
+
+  postgres:
+    image: postgres:15
+    container_name: evolution_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: evolution
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - evolution-net
+
+  redis:
+    image: redis:7-alpine
+    container_name: evolution_redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - evolution-net
+
+networks:
+  evolution-net:
+    driver: bridge
+
+volumes:
+  postgres_data:
+  redis_data:
