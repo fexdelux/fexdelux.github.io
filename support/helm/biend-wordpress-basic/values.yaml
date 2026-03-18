@@ -183,9 +183,10 @@ ingress:
 
 # Configurações de segurança
 securityContext:
-  fsGroup: 33  # www-data
-  runAsUser: 33
-  runAsNonRoot: true
+  fsGroup: 82  # nginx user no Alpine Linux
+  fsGroupChangePolicy: "OnRootMismatch"  # Otimização para NFS
+  # runAsUser: 82  # Descomentado permite root no entrypoint
+  # runAsNonRoot: false
 
 # Node selector
 nodeSelector: {}

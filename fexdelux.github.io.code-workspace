@@ -1,0 +1,20 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"sshfs.configs": [
+			{
+				"name": "biendk8s01",
+				"host": "187.84.150.162",
+				"root": "/home/ubuntu",
+				"username": "ubuntu",
+				"password": "JHNX84hD"
+			}
+		],
+		"liveServer.settings.multiRootWorkspaceName": "fexdelux.github.io",
+		"powershell.cwd": "fexdelux.github.io"
+	}
+}

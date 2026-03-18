@@ -31,8 +31,10 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+      {{- with .Values.securityContext }}
       securityContext:
-        fsGroup: 33
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
       initContainers:
       - name: fix-permissions
         image: busybox:latest
@@ -57,11 +59,6 @@ spec:
           mountPath: /var/www/html
         securityContext:
           runAsUser: 0
-          capabilities:
-            add:
-            - CHOWN
-            - FOWNER
-            - DAC_OVERRIDE
       containers:
       - name: wordpress
         image: "{{ .Values.wordpress.image.repository }}:{{ .Values.wordpress.image.tag }}"
@@ -97,8 +94,6 @@ spec:
               key: redis-password
         {{- end }}
         {{- end }}
-        - name: SKIP_CHOWN
-          value: "true"
         volumeMounts:
         - name: wordpress-data
           mountPath: /var/www/html

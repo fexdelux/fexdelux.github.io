@@ -1,0 +1,17 @@
+{{- if .Values.postgresql.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "evolution-api.fullname" . }}-postgresql
+  labels:
+    {{- include "evolution-api.postgresql.labels" . | nindent 4 }}
+spec:
+  type: ClusterIP
+  ports:
+  - port: {{ .Values.postgresql.service.port }}
+    targetPort: postgresql
+    protocol: TCP
+    name: postgresql
+  selector:
+    {{- include "evolution-api.postgresql.selectorLabels" . | nindent 4 }}
+{{- end }}
