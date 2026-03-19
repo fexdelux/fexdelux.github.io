@@ -315,6 +315,57 @@ redis:
 helm upgrade evolution-api ./evolution-api -f custom-values.yaml
 ```
 
+## Troubleshooting
+
+### Erro: "Operation not permitted" no PostgreSQL/Redis
+
+Se você vê este erro nos logs:
+```
+chown: changing ownership of '/var/lib/postgresql/data/pgdata': Operation not permitted
+```
+
+**Causa**: Storage com restrições de permissão (NFS, Ceph, etc.)
+
+**Solução**: O chart já inclui configurações de securityContext por padrão. Se o problema persistir:
+
+1. **Use o arquivo de configuração para NFS**:
+   ```bash
+   helm install evolution-api ./evolution-api -f values-nfs.yaml
+   ```
+
+2. **Ou configure manualmente**:
+   ```bash
+   helm install evolution-api ./evolution-api \
+     --set postgresql.initContainer.enabled=true \
+     --set postgresql.securityContext.enabled=true
+   ```
+
+**Documentação completa**: Ver [PERMISSIONS_FIX.md](PERMISSIONS_FIX.md)
+
+### Pods em CrashLoopBackOff
+
+1. Verifique os logs:
+   ```bash
+   kubectl logs <pod-name>
+   ```
+
+2. Verifique eventos:
+   ```bash
+   kubectl describe pod <pod-name>
+   ```
+
+3. Problemas comuns:
+   - **PostgreSQL**: Permissões de volume (ver acima)
+   - **Evolution API**: Aguardando PostgreSQL/Redis (normal no primeiro start)
+   - **Redis**: Permissões de volume (ver acima)
+
+### API Key não aparece
+
+Para obter a API key gerada automaticamente:
+```bash
+kubectl get secret evolution-api-secret -o jsonpath="{.data.api-key}" | base64 --decode
+```
+
 ## Desinstalação
 
 ```bash

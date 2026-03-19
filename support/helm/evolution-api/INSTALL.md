@@ -55,14 +55,31 @@ helm install evolution-api ./evolution-api \
   --set externalRedis.port=6379
 ```
 
-### 5. Desenvolvimento (sem persistência)
+### 5. Ambientes com NFS ou Storages com Restrições
+```bash
+# Use o arquivo de configuração otimizado para NFS
+helm install evolution-api ./evolution-api -f values-nfs.yaml
+
+# Ou configure manualmente
+helm install evolution-api ./evolution-api \
+  --set postgresql.initContainer.enabled=true \
+  --set postgresql.securityContext.enabled=true \
+  --set redis.initContainer.enabled=true \
+  --set redis.securityContext.enabled=true \
+  --set postgresql.primary.persistence.storageClass="nfs-client" \
+  --set redis.master.persistence.storageClass="nfs-client"
+```
+
+**Nota**: Se você encontrar erros de "Operation not permitted", consulte [PERMISSIONS_FIX.md](PERMISSIONS_FIX.md)
+
+### 6. Desenvolvimento (sem persistência)
 ```bash
 helm install evolution-api ./evolution-api \
   --set postgresql.primary.persistence.enabled=false \
   --set redis.master.persistence.enabled=false
 ```
 
-### 6. Com S3/MinIO para armazenamento
+### 7. Com S3/MinIO para armazenamento
 ```bash
 # AWS S3
 helm install evolution-api ./evolution-api \

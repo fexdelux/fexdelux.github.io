@@ -15,10 +15,40 @@ spec:
       labels:
         {{- include "evolution-api.redis.selectorLabels" . | nindent 8 }}
     spec:
+      {{- if .Values.redis.securityContext.enabled }}
+      securityContext:
+        fsGroup: {{ .Values.redis.securityContext.fsGroup }}
+        {{- if .Values.redis.securityContext.fsGroupChangePolicy }}
+        fsGroupChangePolicy: {{ .Values.redis.securityContext.fsGroupChangePolicy }}
+        {{- end }}
+      {{- end }}
+      {{- if .Values.redis.initContainer.enabled }}
+      initContainers:
+      - name: init-chmod-data
+        image: "{{ .Values.redis.initContainer.image }}"
+        imagePullPolicy: IfNotPresent
+        command:
+        - sh
+        - -c
+        - |
+          chown -R {{ .Values.redis.securityContext.runAsUser | default 999 }}:{{ .Values.redis.securityContext.fsGroup }} /data || true
+          chmod 755 /data || true
+        volumeMounts:
+        - name: data
+          mountPath: /data
+        securityContext:
+          runAsUser: 0
+      {{- end }}
       containers:
       - name: redis
         image: "{{ .Values.redis.image.repository }}:{{ .Values.redis.image.tag }}"
         imagePullPolicy: IfNotPresent
+        {{- if .Values.redis.containerSecurityContext.enabled }}
+        securityContext:
+          runAsUser: {{ .Values.redis.containerSecurityContext.runAsUser }}
+          runAsNonRoot: {{ .Values.redis.containerSecurityContext.runAsNonRoot }}
+          allowPrivilegeEscalation: false
+        {{- end }}
         ports:
         - name: redis
           containerPort: {{ .Values.redis.service.port }}

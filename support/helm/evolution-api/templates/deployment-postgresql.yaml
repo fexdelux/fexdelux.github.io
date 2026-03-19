@@ -15,10 +15,40 @@ spec:
       labels:
         {{- include "evolution-api.postgresql.selectorLabels" . | nindent 8 }}
     spec:
+      {{- if .Values.postgresql.securityContext.enabled }}
+      securityContext:
+        fsGroup: {{ .Values.postgresql.securityContext.fsGroup }}
+        {{- if .Values.postgresql.securityContext.fsGroupChangePolicy }}
+        fsGroupChangePolicy: {{ .Values.postgresql.securityContext.fsGroupChangePolicy }}
+        {{- end }}
+      {{- end }}
+      {{- if .Values.postgresql.initContainer.enabled }}
+      initContainers:
+      - name: init-chmod-data
+        image: "{{ .Values.postgresql.initContainer.image }}"
+        imagePullPolicy: IfNotPresent
+        command:
+        - sh
+        - -c
+        - |
+          chown -R {{ .Values.postgresql.securityContext.runAsUser | default 999 }}:{{ .Values.postgresql.securityContext.fsGroup }} /var/lib/postgresql/data || true
+          chmod 700 /var/lib/postgresql/data || true
+        volumeMounts:
+        - name: data
+          mountPath: /var/lib/postgresql/data
+        securityContext:
+          runAsUser: 0
+      {{- end }}
       containers:
       - name: postgresql
         image: "{{ .Values.postgresql.image.repository }}:{{ .Values.postgresql.image.tag }}"
         imagePullPolicy: IfNotPresent
+        {{- if .Values.postgresql.containerSecurityContext.enabled }}
+        securityContext:
+          runAsUser: {{ .Values.postgresql.containerSecurityContext.runAsUser }}
+          runAsNonRoot: {{ .Values.postgresql.containerSecurityContext.runAsNonRoot }}
+          allowPrivilegeEscalation: false
+        {{- end }}
         ports:
         - name: postgresql
           containerPort: {{ .Values.postgresql.service.port }}

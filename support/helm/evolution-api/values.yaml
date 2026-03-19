@@ -77,6 +77,20 @@ postgresql:
       enabled: true
       size: 10Gi
       storageClass: ""
+  # SecurityContext para resolver problemas de permissão em NFS e outros storages
+  securityContext:
+    enabled: true
+    fsGroup: 999  # GID do postgres no container
+    fsGroupChangePolicy: "OnRootMismatch"  # Aplica permissões apenas quando necessário
+    runAsUser: 999  # UID do postgres no container
+  containerSecurityContext:
+    enabled: true
+    runAsUser: 999
+    runAsNonRoot: true
+  # InitContainer para ajustar permissões (necessário em alguns ambientes)
+  initContainer:
+    enabled: true
+    image: busybox:latest
   resources:
     limits:
       cpu: 500m
@@ -100,6 +114,20 @@ redis:
       enabled: true
       size: 5Gi
       storageClass: ""
+  # SecurityContext para resolver problemas de permissão
+  securityContext:
+    enabled: true
+    fsGroup: 999  # GID padrão do redis
+    fsGroupChangePolicy: "OnRootMismatch"
+    runAsUser: 999  # UID padrão do redis
+  containerSecurityContext:
+    enabled: true
+    runAsUser: 999
+    runAsNonRoot: true
+  # InitContainer para ajustar permissões
+  initContainer:
+    enabled: true
+    image: busybox:latest
   resources:
     limits:
       cpu: 500m

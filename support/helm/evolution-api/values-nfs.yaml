@@ -1,0 +1,127 @@
+# ConfiguraÃ§Ãµes para ambientes com NFS ou storages com restriÃ§Ãµes de permissÃ£o
+# Use este arquivo se vocÃª encontrar erros de "Operation not permitted" no PostgreSQL/Redis
+#
+# InstalaÃ§Ã£o:
+# helm install evolution-api ./evolution-api -f values-nfs.yaml
+
+# Replica count
+replicaCount: 1
+
+# Evolution API
+evolution:
+  serverUrl: "http://localhost:8080"
+  # authenticationApiKey gerada automaticamente se vazio
+  authenticationApiKey: ""
+
+# PostgreSQL com configuraÃ§Ãµes para NFS
+postgresql:
+  enabled: true
+  
+  # SecurityContext otimizado para NFS
+  securityContext:
+    enabled: true
+    fsGroup: 999
+    fsGroupChangePolicy: "OnRootMismatch"  # Muda apenas quando necessÃ¡rio
+    runAsUser: 999
+  
+  containerSecurityContext:
+    enabled: true
+    runAsUser: 999
+    runAsNonRoot: true
+  
+  # InitContainer OBRIGATÃ“RIO para NFS
+  initContainer:
+    enabled: true
+    image: busybox:latest
+  
+  primary:
+    persistence:
+      enabled: true
+      size: 20Gi
+      # Especifique seu storageClass NFS aqui
+      storageClass: "nfs-client"  # Ajuste conforme seu ambiente
+  
+  resources:
+    limits:
+      cpu: 1000m
+      memory: 1Gi
+    requests:
+      cpu: 500m
+      memory: 512Mi
+
+# Redis com configuraÃ§Ãµes para NFS
+redis:
+  enabled: true
+  
+  # SecurityContext otimizado para NFS
+  securityContext:
+    enabled: true
+    fsGroup: 999
+    fsGroupChangePolicy: "OnRootMismatch"
+    runAsUser: 999
+  
+  containerSecurityContext:
+    enabled: true
+    runAsUser: 999
+    runAsNonRoot: true
+  
+  # InitContainer OBRIGATÃ“RIO para NFS
+  initContainer:
+    enabled: true
+    image: busybox:latest
+  
+  master:
+    persistence:
+      enabled: true
+      size: 10Gi
+      # Especifique seu storageClass NFS aqui
+      storageClass: "nfs-client"  # Ajuste conforme seu ambiente
+  
+  resources:
+    limits:
+      cpu: 500m
+      memory: 512Mi
+    requests:
+      cpu: 250m
+      memory: 256Mi
+
+# S3/MinIO (opcional)
+s3:
+  enabled: false
+  bucket: "evolution"
+  accessKey: ""
+  secretKey: ""
+  endpoint: ""
+  port: 443
+  useSSL: true
+  region: "us-east-1"
+
+# Ingress (opcional)
+ingress:
+  enabled: false
+  className: "nginx"
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+  hosts:
+    - host: evolution.example.com
+      paths:
+        - path: /
+          pathType: Prefix
+  tls:
+    - secretName: evolution-tls
+      hosts:
+        - evolution.example.com
+
+# Service
+service:
+  type: ClusterIP
+  port: 8080
+
+# Resources para Evolution API
+resources:
+  limits:
+    cpu: 2000m
+    memory: 2Gi
+  requests:
+    cpu: 1000m
+    memory: 1Gi
