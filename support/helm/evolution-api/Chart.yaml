@@ -2,7 +2,7 @@ apiVersion: v2
 name: evolution-api
 description: Evolution API - WhatsApp Multi-Device API
 type: application
-version: 1.0.1
+version: 1.0.2
 appVersion: "latest"
 keywords:
   - evolution

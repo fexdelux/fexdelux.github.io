@@ -31,8 +31,14 @@ spec:
         - sh
         - -c
         - |
-          chown -R {{ .Values.redis.securityContext.runAsUser | default 999 }}:{{ .Values.redis.securityContext.fsGroup }} /data || true
-          chmod 755 /data || true
+          set -e
+          echo "Verificando diretório de dados..."
+          mkdir -p /data
+          echo "Ajustando permissões..."
+          chown -R {{ .Values.redis.securityContext.runAsUser | default 999 }}:{{ .Values.redis.securityContext.fsGroup }} /data
+          chmod 755 /data
+          echo "Permissões ajustadas com sucesso!"
+          ls -la /data
         volumeMounts:
         - name: data
           mountPath: /data
