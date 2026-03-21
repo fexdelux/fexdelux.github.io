@@ -27,7 +27,7 @@ wordpress:
   
   image:
     repository: registry.biend.com.br/wordpress-nginx-php8
-    tag: "latest"
+    tag: "1.1.0"
     pullPolicy: IfNotPresent
   
   service:
@@ -180,13 +180,6 @@ ingress:
     - secretName: wordpress-tls
       hosts:
         - wordpress.example.com
-
-# Configurações de segurança
-securityContext:
-  fsGroup: 82  # nginx user no Alpine Linux
-  fsGroupChangePolicy: "OnRootMismatch"  # Otimização para NFS
-  # runAsUser: 82  # Descomentado permite root no entrypoint
-  # runAsNonRoot: false
 
 # Node selector
 nodeSelector: {}

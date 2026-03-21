@@ -34,7 +34,10 @@ RUN apk add --no-cache \
         php83-ctype \
         php83-fileinfo \
         php83-iconv \
-        php83-phar && \
+        php83-phar \
+        php83-exif \
+        imagemagick \
+        php83-pecl-imagick && \
     # Criar symlinks para php e php-fpm
     ln -sf /usr/bin/php83 /usr/bin/php && \
     ln -sf /usr/sbin/php-fpm83 /usr/sbin/php-fpm && \
@@ -46,9 +49,8 @@ RUN apk add --no-cache \
 # Configurar Nginx e diretórios
 RUN mkdir -p /var/www/html /run/php /run/nginx /var/cache/nginx/fastcgi && \
     rm -f /etc/nginx/http.d/default.conf && \
-    chown -R nginx:nginx /var/www/html /var/lib/nginx /var/cache/nginx && \
-    chmod -R 755 /var/www/html
-
+    chown -R nginx:nginx /var/www/html /var/lib/nginx /var/cache/nginx /run/php /run/nginx
+    
 # Copiar arquivos de configuração
 COPY nginx.conf /etc/nginx/nginx.conf
 COPY nginx-wordpress.conf /etc/nginx/http.d/wordpress.conf

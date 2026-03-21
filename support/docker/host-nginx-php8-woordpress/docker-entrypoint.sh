@@ -1,8 +1,9 @@
 #!/bin/sh
 set -e
 
-# Criar diretórios necessários
+# Criar diretórios necessários e garantir ownership do nginx
 mkdir -p /run/php /run/nginx /var/www/html
+chown nginx:nginx /run/php /run/nginx
 
 # Variáveis de ambiente padrão para WordPress
 WORDPRESS_DB_HOST="${WORDPRESS_DB_HOST:-mysql}"
@@ -11,7 +12,7 @@ WORDPRESS_DB_USER="${WORDPRESS_DB_USER:-wordpress}"
 WORDPRESS_DB_PASSWORD="${WORDPRESS_DB_PASSWORD:-wordpress123}"
 WORDPRESS_TABLE_PREFIX="${WORDPRESS_TABLE_PREFIX:-wp_}"
 WORDPRESS_DEBUG="${WORDPRESS_DEBUG:-false}"
-
+SKIP_CHOWN="${SKIP_CHOWN:-true}"
 # Verificar se WordPress já existe
 if [ ! -f /var/www/html/wp-config.php ] && [ ! -f /var/www/html/index.php ]; then
     echo "WordPress não encontrado. Baixando última versão..."
@@ -28,6 +29,9 @@ if [ ! -f /var/www/html/wp-config.php ] && [ ! -f /var/www/html/index.php ]; the
     rm -rf wordpress wordpress.tar.gz
     
     echo "WordPress instalado com sucesso!"
+    SKIP_CHOWN="false"
+else
+    echo "WordPress já existe, pulando instalação."    
 fi
 
 # Criar ou atualizar wp-config.php se não existir
@@ -79,6 +83,9 @@ define( 'WP_MAX_MEMORY_LIMIT', '512M' );
 define( 'DISALLOW_FILE_EDIT', true );
 define( 'FORCE_SSL_ADMIN', false );
 
+// Disable pseudo-cron triggered by HTTP requests; a real cron job is used instead
+define( 'DISABLE_WP_CRON', true );
+
 /* That's all, stop editing! Happy publishing. */
 
 /** Absolute path to the WordPress directory. */
@@ -121,6 +128,13 @@ php-fpm83 -F &
 
 # Aguardar PHP-FPM iniciar
 sleep 2
+
+# Configurar e iniciar cron real para WordPress (substitui o pseudo-cron por HTTP)
+echo "Configurando WordPress cron..."
+mkdir -p /etc/crontabs
+echo '* * * * * php /var/www/html/wp-cron.php > /dev/null 2>&1' > /etc/crontabs/nginx
+crond -b -l 8 -L /var/log/nginx/cron.log
+echo "Cron iniciado."
 
 # Iniciar Nginx em foreground
 echo "Iniciando Nginx..."
