@@ -16,7 +16,7 @@ spec:
   subject:
     organizations:
       - {{ .Values.certificate.organization | default "BiendIT" }}
-  commonName: {{ .Values.certificate.commonName | default "wordpress.local" }}
+  commonName: {{ .Values.certificate.commonName | default "wordpress.local" | quote }}
   dnsNames:
     - {{ .Values.certificate.commonName | default "wordpress.local" | quote }}
     {{- range .Values.certificate.dnsNames }}
